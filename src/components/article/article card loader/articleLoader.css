@@ -1,0 +1,12 @@
+.article-loader-box{
+    display: flex;
+    /* gap: 2rem; */
+    overflow: hidden;
+    align-items: center;
+    margin: 1.25rem 1.15rem !important;
+    padding: 0.45rem;
+
+}
+.article-loader-box>div{
+    margin: 1rem;
+}

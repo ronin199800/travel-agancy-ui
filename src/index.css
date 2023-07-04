@@ -1,0 +1,67 @@
+:root {
+  --font-size: 14px;
+  --bg-body-dark: #121212;
+  --bg-body-light: #dcdde1;
+  --bg-box-dark: #282c34;
+  --text-dark: #ffffff;
+  --btn-dark: #bb86fc;
+  --btn-light: #6200ee;
+  --btn-shadow-dark: #bb86fc73;
+  --btn-shadow-light: #6300ee85;
+  --btn-text-dark: #f5f6fa;
+  --bg-box-light: #f5f6fab9;
+  --text-light: #1e1e1e;
+  --text-mute-dark: #95a5a6;
+  --text-mute-light: #2f3640d0;
+}
+@font-face {
+  font-family: myFont;
+  src: url(/fonts/AnjomanMaxNoEn-Regular.ttf);
+}
+@font-face {
+  font-family: myFont-b;
+  src: url(/fonts/AnjomanMaxNoEn-Bold.ttf);
+}
+@font-face {
+  font-family: myFont-l;
+  src: url(/fonts/AnjomanMaxNoEn-Light.ttf);
+}
+#root{
+
+}
+* {
+  box-sizing: border-box !important;
+}
+button{
+  font-family: myFont;
+}
+a {
+  text-decoration: none;
+  color: inherit !important;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+html,
+body {
+  direction: rtl;
+  font-family: myFont !important;
+  line-height: 1.6;
+  font-size: var(--font-size);
+  height: 100% ;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

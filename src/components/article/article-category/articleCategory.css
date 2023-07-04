@@ -1,0 +1,13 @@
+.active-category {
+  color: rgba(255, 0, 0, 1) !important;
+}
+.article-category-loader {
+  padding: 3.1rem !important;
+  margin-top: 1.3rem !important;
+}
+.each-category{
+  transition: .15s ease;
+}
+.each-category:hover {
+  color: #7f8c8d;
+}

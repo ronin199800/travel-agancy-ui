@@ -1,0 +1,70 @@
+@media screen and (min-width: 700px) {
+  nav.breadcrumb > ul.dark {
+
+    transition: .15s ease;
+    box-shadow: 5px 1px 12px rgba(255, 255, 255, 0.07);
+    background-color: #282c34b6;
+    border-radius: 7px;
+
+
+  }
+  nav.breadcrumb > ul {
+    margin-left: 1.1rem;
+  }
+
+  nav.breadcrumb {
+    margin-bottom: 1.5rem;
+ 
+  }
+  nav.breadcrumb > ul.light {
+    background-color: #282c34b6;
+    border-radius: 7px;
+    background-color: #f5f6fa7c;
+
+    transition: .15s ease;
+    box-shadow: 5px 1px 12px rgba(0, 0, 0, .05);
+  }
+}
+nav.breadcrumb > ul {
+  padding: 0;
+  padding: 0.2rem 1rem;
+}
+.breadcrumb > ul {
+  display: flex;
+  list-style: none;
+}
+.active {
+  color: #70a1ff !important;
+}
+
+.breadcrumb-link-dark {
+  color: #a4b0be;
+  font-family: myFont-l;
+  transition: 0.15s ease;
+}
+.breadcrumb-link-light {
+  color: #00000077;
+  font-family: myFont-l;
+  transition: 0.15s ease;
+}
+
+@media screen and (max-width: 700px) {
+  .breadcrumb > ul {
+    margin: 0 -0.6rem;
+  }
+  .breadcrumb {
+    font-size: 0.9rem;
+  }
+}
+.breadcrumb > ul > li {
+  padding: 0.3rem 0.4rem;
+}
+
+.breadcrumb.breadcrumb-dark > ul > li::after {
+  content: " / ";
+  color: rgba(255, 255, 255, 0.3);
+}
+.breadcrumb.breadcrumb-light > ul > li::after {
+  content: " / ";
+  color: rgba(0, 0, 0, 0.5);
+}
