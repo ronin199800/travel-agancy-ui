@@ -9,6 +9,7 @@ import NotFound from "./components/404/notFound";
 import Home from "./routes/home";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import PostArticle from "./components/panel/postArticle/postArticle";
+import PArticle from "./components/panel/article/articles";
 
 function App() {
   const [mode, setmode] = useState("dark");
@@ -25,7 +26,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/articles" Component={Article} />
-          <Route path="/panel/post-article" Component={PostArticle} />
+          <Route path="/panel/articles" Component={PArticle} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/" Component={Home} />
           <Route path="*" element={<Navigate to="/not-found" />} />
