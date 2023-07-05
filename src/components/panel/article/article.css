@@ -1,36 +1,57 @@
-.panel-article-container{
-    max-width: 1150px;
-    margin: 0 auto;
-    text-align: center;
-
+.panel-article-container {
+  max-width: 1050px;
+  margin: 0 auto;
+  text-align: center;
 }
-.panel-article-container > ul{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.panel-article-container > ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: ;
 }
 .panel-article-container > ul .list-header {
   display: flex;
 }
 .panel-article-container > ul div.list-header > span:first-child {
-    width: 300px;
-  
+  min-width: 300px;
+  text-align: right;
 }
 .panel-article-container > ul div.list-header > span {
-    width: 150px;
-    padding: 1rem;
+  min-width: 150px;
+  padding: 1rem;
 }
 .panel-article-container > ul > li {
   display: flex;
   align-items: center;
+}
+.panel-article-container > ul > li > div:first-child {
+  min-width: 300px;
+  text-align: right;
+}
+.panel-article-container > ul > li > div {
+  min-width: 150px;
+  padding:  0.4rem;
+}
+
+.panel-article-container > ul > li > div>button>span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.panel-article-container > ul > li > div button{
+    padding: .2rem .5rem;
+    border-radius: 3px;
+}
+.panel-article-container > ul > li > div .delete-btn{
+    border: 0;
+    outline: 0;
+    background-color: #e74c3c;
+}
+.panel-article-container > ul > li > div .edit-btn{
+    border: 0;
+    outline: 0;
+    background-color: #fbc531;
 
 }
-.panel-article-container > ul > li >*:first-child{
-    width: 300px;
-}
-.panel-article-container > ul > li >* {
-    width: 150px;
-padding: .5rem;
-}
-

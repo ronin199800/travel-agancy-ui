@@ -55,14 +55,14 @@ class PArticle extends Component {
                   </span>
                 </div>
                 <div>
-                  <button>
+                  <button className=" delete-btn">
                     <span class={`material-symbols-rounded`}>
                       delete_forever
                     </span>
                   </button>
                 </div>
                 <div>
-                  <button>
+                  <button className=" edit-btn">
                     <span class={`material-symbols-rounded`}>edit</span>
                   </button>
                 </div>
