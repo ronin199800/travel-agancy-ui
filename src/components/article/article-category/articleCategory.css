@@ -4,18 +4,23 @@
   scrollbar-width: thin; /* Set the width of the scrollbar */
 
 }
+@media screen and (max-width: 950px){
+  .article-category>ul::-webkit-scrollbar {
+display: none;
+  
+  }
+}
 
 .article-category>ul::-webkit-scrollbar {
   width: 7px;
-  padding: 20px;
+  
+
 }
 .article-category>ul::-webkit-scrollbar-track {
   background-color: transparent; /* Set the background color of the scrollbar track */
-  padding: 20px;
 }
 .article-category>ul::-webkit-scrollbar-thumb {
-  background-color: #8888886b; /* Set the color of the scrollbar thumb */
-  border-radius: 4px ; /* Set the border radius of the scrollbar thumb */
+  background-color: #8888886b; /* Set t* Set the border radius of the scrollbar thumb */
 }
 .article-category>ul::-webkit-scrollbar-thumb:hover {
   background-color: #55555586; /* Set the color of the scrollbar thumb on hover */
