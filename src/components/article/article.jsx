@@ -51,7 +51,7 @@ class Article extends Component {
             <div className={`article-btn theme-btn-${this.context.mode}`}>
               <Link
                 className={`theme-btn-text-${this.context.mode}`}
-                to={`/atricles/${this.props.article._id}`}
+                to={`/articles/${this.props.article._id}`}
               >
                 مطالعه
               </Link>

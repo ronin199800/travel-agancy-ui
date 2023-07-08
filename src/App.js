@@ -10,6 +10,7 @@ import Home from "./routes/home";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import PostArticle from "./components/panel/postArticle/postArticle";
 import PArticle from "./components/panel/article/articles";
+import EachArticle from "./routes/eachArticle";
 
 function App() {
   const [mode, setmode] = useState("dark");
@@ -26,6 +27,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/articles" Component={Article} />
+          <Route path="/articles/:id" Component={EachArticle} />
           <Route path="/panel/articles" Component={PArticle} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/" Component={Home} />
