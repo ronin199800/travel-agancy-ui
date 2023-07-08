@@ -22,7 +22,7 @@ function App() {
         convertNumbersToPersian:convertNumbersToPersian
       }}
     >
-      <div className={`app-container theme-bg-${mode}`}>
+      <div className={`app-container scroll-${mode} theme-bg-${mode}`}>
         <Navbar />
         <Routes>
           <Route path="/articles" Component={Article} />

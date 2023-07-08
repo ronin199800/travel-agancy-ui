@@ -33,11 +33,11 @@ const ArticleCategory = ({ categories, OnCategory, isLoaded }) => {
                         cursor:'pointer'
                     }}
                     onClick={() => {
-                      OnCategory(c);
+                      OnCategory(c._id);
                       setActiveCategory(c);
                     }}
                   >
-                    {category(c)}
+                    {c.name_fa}
                   </span>
                 </li>
               );
@@ -47,17 +47,6 @@ const ArticleCategory = ({ categories, OnCategory, isLoaded }) => {
       )}
     </>
   );
-  function category(c) {
-    if (c === "news") {
-      return "اخبار گردشگری";
-    } else if (c === "roles") {
-      return "قوانین کشورها";
-    } else if (c === "guide") {
-      return "راهنمای گردشگری";
-    } else if (c === "tourism") {
-      return "جاذبه های  دیدنی";
-    }
-  }
 };
 
 export default ArticleCategory;

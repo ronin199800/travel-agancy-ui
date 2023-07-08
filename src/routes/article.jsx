@@ -65,11 +65,11 @@ class Article extends Component {
       </>
     );
   }
-  handleFilter = async (category) => {
+  handleFilter = async (categoryId) => {
     try {
       this.setState({ isLoaded: true });
       const response = await axios.get(
-        `http://localhost:5000/api/article/${category}`
+        `http://localhost:5000/api/article/${categoryId}`
       );
       setTimeout(() => {
         this.setState({ articles: response.data.data, isLoaded: false });
