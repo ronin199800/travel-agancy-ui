@@ -17,7 +17,7 @@ const EachArticle = () => {
     fetchData();
   }, []);
 
-  return <div>{eachArticle._id}</div>;
+  return <h1 style={{color:'red'}}>{eachArticle._id}</h1>;
 };
 
 export default EachArticle;
