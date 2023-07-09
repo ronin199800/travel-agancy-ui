@@ -3,6 +3,8 @@ import { digitsEnToFa } from "@persian-tools/persian-tools";
 import appContext from "../../context/app";
 import { Link } from "react-router-dom";
 import moment from "jalali-moment";
+import LazyLoad from "react-lazyload";
+
 
 class Article extends Component {
   static contextType = appContext;
@@ -12,7 +14,10 @@ class Article extends Component {
         className={`article theme-box-${this.context.mode} theme-text-${this.context.mode}`}
       >
         <div className="img-container">
-          <img src={this.props.article.img_url} alt="" />
+          <LazyLoad>
+            <img src={this.props.article.img_url} alt="" />
+          </LazyLoad>
+
         </div>
         <div className="text-container">
           <div className="article-header">

@@ -2,6 +2,7 @@
   max-height: 160px;
   overflow-y: scroll;
   scrollbar-width: thin; /* Set the width of the scrollbar */
+  
 
 }
 @media screen and (max-width: 950px){

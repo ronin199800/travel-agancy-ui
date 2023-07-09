@@ -29,6 +29,7 @@ function App() {
           <Route path="/articles" Component={Article} />
           <Route path="/articles/:id" Component={EachArticle} />
           <Route path="/panel/articles" Component={PArticle} />
+          <Route path="/panel/articles/post" Component={PostArticle} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/" Component={Home} />
           <Route path="*" element={<Navigate to="/not-found" />} />
