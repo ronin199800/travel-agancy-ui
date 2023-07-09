@@ -6,36 +6,12 @@ import "./articleLoader.css";
 const ArticleLoader = () => {
   const context = useContext(appContext);
   return isMode(context);
-
-  // <>
-  //   {Array(6)
-  //     .fill({})
-  //     .map(() => {
-  //       return (
-  //         <>
-  //           <SkeletonTheme baseColor="#202020" highlightColor="#444">
-  //             <div
-  //               className={`article-loader-box theme-box-${context.mode} theme-text-${context.mode}`}
-  //             >
-  //               <div className="loader-img-container">
-  //                 <Skeleton width={180} height={180} />
-  //               </div>
-  //               <div className="loader text">
-  //                 <Skeleton  style={{marginBottom:'1rem'}}  height={35} width={200}/>
-  //                 <Skeleton style={{marginBottom:'.3rem'}} count={3} width={390} height={18} />
-  //               </div>
-  //             </div>
-  //           </SkeletonTheme>
-  //         </>
-  //       );
-  //     })}
-  // </>
 };
 function isMode(context) {
   if (context.mode === "dark") {
     return (
       <>
-        {Array(8)
+        {Array(6)
           .fill({})
           .map(() => {
             return (

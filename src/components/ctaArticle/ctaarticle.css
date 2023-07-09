@@ -1,5 +1,6 @@
 .sidebar {
   display: none;
+  margin: 2rem;
 }
 .sidebar > div {
   padding: 1rem 1rem;

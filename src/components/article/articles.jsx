@@ -13,7 +13,7 @@ class Articles extends Component {
   render() {
     return (
       <>
-        <div className="container">
+        <div className="container transition">
           {this.props.isLoaded ? (
             <ArticleLoader />
           ) : (

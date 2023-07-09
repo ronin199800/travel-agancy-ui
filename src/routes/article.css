@@ -18,9 +18,7 @@
     .article-router-body{
         margin: 0 auto;
     }
-    .article-body-container>div>div{
-        margin: 0 2rem;
-    }
+
     .article-category{
         height: min-content;
         margin-top: 1.3rem !important;
@@ -31,7 +29,7 @@
 
 @media screen and (max-width: 950px){
     .article-body-container>div>div{
-        margin: 2rem 5rem;
+        margin: 2rem 1.6rem;
         margin-top: 1.2rem;
     }
 }

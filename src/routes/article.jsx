@@ -13,6 +13,8 @@ class Article extends Component {
     articles: [],
     isLoaded: true,
     categories: [],
+    currentPage: 1,
+    articlesPerPage: 6,
   };
   async componentDidMount() {
     this.fetchArticles();
@@ -21,7 +23,13 @@ class Article extends Component {
 
   fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/article");
+      const { currentPage, articlesPerPage } = this.state;
+      const response = await axios.get("http://localhost:5000/api/article", {
+        params: {
+          page: currentPage,
+          limit: articlesPerPage,
+        },
+      });
       setTimeout(() => {
         this.setState({ articles: response.data.data, isLoaded: false });
       }, 1200);
@@ -29,37 +37,79 @@ class Article extends Component {
       console.error(error);
     }
   };
+  handleNextPage = () => {
+    const { currentPage } = this.state;
+    this.setState({ currentPage: currentPage + 1 }, () => {
+      this.fetchArticles();
+    });
+  };
+
+  handlePreviousPage = () => {
+    const { currentPage } = this.state;
+    if (currentPage > 1) {
+      this.setState({ currentPage: currentPage - 1 }, () => {
+        this.fetchArticles();
+      });
+    }
+  };
 
   fetchCategories = async () => {
     try {
-
       const response = await axios.get(
         "http://localhost:5000/api/article/category"
       );
-      this.setState({ categories: response.data.data});
+      this.setState({ categories: response.data.data });
     } catch (error) {
       console.error(error);
     }
   };
 
   render() {
+    const { articles, isLoaded, categories, currentPage, articlesPerPage } =
+      this.state;
+    const totalArticles = articles.length;
+
+    // Calculate the index of the last article on the current page
+    const indexOfLastArticle = currentPage * articlesPerPage;
+
+    // Calculate the index of the first article on the current page
+    const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+
+    // Get the articles to be displayed on the current page
+    const currentArticles = articles.slice(
+      indexOfFirstArticle,
+      indexOfLastArticle
+    );
     return (
       <>
         <div className="article-router-body">
           <Breadcrumb />
           <div className="article-body-container">
-            <div style={{position:'relative'}}>
+            <div style={{ position: "relative" }}>
               <ArticleCategory
-                categories={this.state.categories}
+                categories={categories}
                 OnCategory={this.handleFilter}
-                isLoaded={this.state.isLoaded}
+                isLoaded={isLoaded}
               />
               <CtaArticle />
             </div>
-            <Articles
-              articles={this.state.articles}
-              isLoaded={this.state.isLoaded}
-            />
+            <div>
+              <Articles articles={currentArticles} isLoaded={isLoaded} />
+            </div>
+            <div className="pagination">
+              <button
+                onClick={this.handlePreviousPage}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <button
+                onClick={this.handleNextPage}
+                disabled={indexOfLastArticle >= totalArticles}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </>
