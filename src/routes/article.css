@@ -84,6 +84,15 @@
     justify-content: center;
     margin: 2rem 0;
   }
+  .pagination-container > .pagination > button:first-child {
+
+    padding-left: 4rem !important;
+  }
+  .pagination-container > .pagination > button:nth-child(2) {
+
+    padding-right: 4rem !important;
+  }
+  
 }
 .pagination-container > .pagination > button {
   border: 0;
