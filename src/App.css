@@ -1,6 +1,7 @@
 .app-container {
   min-height: 100vh;
-  min-width: 100vw;
+  width: 100vw;
+  overflow-x: hidden;
 }
 .theme-bg-dark {
   background-color: var(--bg-body-dark);

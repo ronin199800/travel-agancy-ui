@@ -96,18 +96,22 @@ class Article extends Component {
             <div>
               <Articles articles={currentArticles} isLoaded={isLoaded} />
             </div>
+          </div>
+          <div className="pagination-container">
             <div className="pagination">
               <button
                 onClick={this.handlePreviousPage}
                 disabled={currentPage === 1}
+                className={this.context.mode}
               >
-                Previous
+                <span class={`material-symbols-rounded`}>navigate_next</span>
               </button>
               <button
                 onClick={this.handleNextPage}
                 disabled={indexOfLastArticle >= totalArticles}
+                className={this.context.mode}
               >
-                Next
+                <span class={`material-symbols-rounded`}>navigate_before</span>
               </button>
             </div>
           </div>

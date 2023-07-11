@@ -141,7 +141,6 @@
 @media screen and (min-width: 1150px) {
   .sidebar.fixed {
     top: 160px;
-
     width: calc(27% + 8px);
     max-width: 327px;
   }
