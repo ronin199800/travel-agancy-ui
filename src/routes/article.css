@@ -91,19 +91,19 @@
   align-items: center;
   justify-content: center;
 }
-.pagination-container > .pagination > button.dark:disabled{
-    background-color: #2e5fcf;
+.pagination-container > .pagination > button:disabled {
+  background-color: #2e5fcf;
 }
-.pagination-container > .pagination > button.dark:disabled:hover{
-    background-color: #2e5fcf;
-    cursor: auto;
+.pagination-container > .pagination > button:disabled:hover {
+  background-color: #2e5fcf !important;
+  cursor: auto;
+  color: #fff !important;
 }
-.pagination-container > .pagination > button.dark:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.pagination-container > .pagination > button.light:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: var(--theme-text-light);
+
+.pagination-container > .pagination > button:hover {
+  /* background-color: rgba(0, 0, 0, 0.3);
+  color: var(--theme-text-light); */
+  background-color: #0035b1;
 }
 .pagination-container > .pagination > button:first-child {
   border-top-right-radius: 3px;
