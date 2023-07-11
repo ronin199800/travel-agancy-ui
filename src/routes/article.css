@@ -70,7 +70,14 @@
 .pagination-container > .pagination {
   display: flex;
 
-  margin: 2rem 1.3rem;
+  margin: 2rem 1.15rem;
+  border-radius: 3px;
+}
+.pagination-container > .pagination.light{
+    box-shadow: 1px 3px 10px rgba(0, 0, 0, .4);
+}
+.pagination-container > .pagination.dark{
+    box-shadow: 1px 3px 10px rgba(255, 255, 255, .1);
 }
 @media screen and (max-width: 950px) {
   .pagination-container {
