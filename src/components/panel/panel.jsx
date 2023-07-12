@@ -9,16 +9,7 @@ class Panel extends Component {
   render() {
     const { mode} = this.context;
     return (
-      <div className="panel-conteiner">
-        <div className={`panel-nav theme-text-${mode}`}>
-            <ModeBtn />
-
-          <Accordion />
-        </div>
-        <div className="panel-body">
-
-        </div>
-      </div>
+<></>
     );
   }
 

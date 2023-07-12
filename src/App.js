@@ -1,10 +1,9 @@
 
-import logo from "./logo.svg";
 import "./App.css";
 import Article from "./routes/article";
 import { useState } from "react";
 import appContext from "./context/app";
-import { Route, Routes, Navigate, useRoutes } from "react-router-dom";
+import { Route, Routes, Navigate} from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import NotFound from "./components/404/notFound";
 import Home from "./routes/home";
@@ -26,7 +25,7 @@ function App() {
         convertNumbersToPersian: convertNumbersToPersian
       }}
     >
-      <div className={`app-container scroll-${mode} theme-bg-${mode}`}>
+      <div className={`app-container scroll-${mode} theme-bg-${mode} panel-app-container`}>
         {/*
           Render Navbar for all routes except those starting with /panel
         */}

@@ -23,7 +23,8 @@ class PArticle extends Component {
 
   render() {
     return (
-      <div className="panel-article-container">
+<div className="panel-body">
+<div className="panel-article-container">
         <ul
           className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
         >
@@ -42,7 +43,7 @@ class PArticle extends Component {
                 </div>
                 <div>
                   {" "}
-                  <span>{this.category(article.category)}</span>
+                  <span>{article.category.name_fa}</span>
                 </div>
                 <div>
                   {" "}
@@ -71,19 +72,10 @@ class PArticle extends Component {
           })}
         </ul>
       </div>
+</div>
     );
   }
-  category = (c) => {
-    if (c === "news") {
-      return "اخبار گردشگری";
-    } else if (c === "roles") {
-      return "قوانین کشورها";
-    } else if (c === "guide") {
-      return "راهنمای گردشگری";
-    } else if (c === "tourism") {
-      return "جاذبه های  دیدنی";
-    }
-  };
+
 }
 
 export default PArticle;
