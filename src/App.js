@@ -1,9 +1,10 @@
+
 import logo from "./logo.svg";
 import "./App.css";
 import Article from "./routes/article";
 import { useState } from "react";
 import appContext from "./context/app";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useRoutes } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import NotFound from "./components/404/notFound";
 import Home from "./routes/home";
@@ -11,32 +12,43 @@ import { digitsEnToFa } from "@persian-tools/persian-tools";
 import PostArticle from "./components/panel/postArticle/postArticle";
 import PArticle from "./components/panel/article/articles";
 import EachArticle from "./routes/eachArticle";
+import Panel from "./components/panel/panel";
+import PanelNav from "./components/panel/panelNav";
 
 function App() {
-  const [mode, setmode] = useState("dark");
+  const [mode, setmode] = useState("light");
   return (
     <appContext.Provider
       value={{
         mode: mode,
         setmode: setmode,
         changeMode: changeMode,
-        convertNumbersToPersian:convertNumbersToPersian
+        convertNumbersToPersian: convertNumbersToPersian
       }}
     >
       <div className={`app-container scroll-${mode} theme-bg-${mode}`}>
-        <Navbar />
+        {/*
+          Render Navbar for all routes except those starting with /panel
+        */}
         <Routes>
-          <Route path="/articles" Component={Article} />
-          <Route path="/articles/:id" Component={EachArticle} />
-          <Route path="/panel/articles" Component={PArticle} />
-          <Route path="/panel/articles/post" Component={PostArticle} />
+          <Route path="/panel/*" element={<PanelNav />} /> {/* Use PanelNav for routes starting with /panel */}
+          <Route path="/*" element={<Navbar />} /> {/* Use Navbar for all other routes */}
+        </Routes>
+        
+        <Routes>
+          <Route path="/articles" element={<Article />} />
+          <Route path="/articles/:id" element={<EachArticle />} />
+          <Route path="/panel" element={<Panel />} />
+          <Route path="/panel/articles" element={<PArticle />} />
+          <Route path="/panel/articles/post" element={<PostArticle />} />
           <Route path="/not-found" element={<NotFound />} />
-          <Route path="/" Component={Home} />
+          <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </div>
     </appContext.Provider>
   );
+  
   function changeMode() {
     if (mode === "light") {
       setmode("dark");
@@ -45,7 +57,8 @@ function App() {
       setmode("light");
     }
   }
-  function convertNumbersToPersian(content){
+  
+  function convertNumbersToPersian(content) {
     const regex = /\d+/g; // Regular expression to match any sequence of digits
     const matches = content.match(regex); // Find all matches of numbers in the content
   
@@ -57,7 +70,7 @@ function App() {
     }
   
     return content;
-  };
+  }
 }
 
 export default App;

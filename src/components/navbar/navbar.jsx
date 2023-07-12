@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <>
       <div>navbar</div>
-      <button onClick={context.changeMode}>switch theme</button>
+      <button className="change-mode-btn" onClick={context.changeMode}>switch theme</button>
     </>
   );
 };

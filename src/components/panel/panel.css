@@ -1,0 +1,48 @@
+.panel-nav ul{
+    list-style: none;
+    padding: 0;
+}
+.panel-nav > .panel-accordion > li > span {
+  background-color: rgb(5, 76, 76);
+  display: block;
+  padding: .6rem;
+  padding-right: 1.5rem;
+}
+.panel-nav > .panel-accordion > li > ul {
+  background-color: red;
+  overflow: hidden;
+  transition: 0.2s ease-out;
+}
+.panel-nav > .panel-accordion > li > ul>li{
+    padding: .4rem;
+    padding-right: 2rem;
+}
+.panel-nav > .panel-accordion > li > ul.is-close {
+  height: 0;
+
+}
+.panel-nav > .panel-accordion > li > ul.is-open {
+  height: auto;
+  padding: .8rem 0;
+
+}
+.panel-conteiner{
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+}
+@media screen and (max-width: 1150px){
+    .panel-conteiner{
+        display: grid;
+        grid-template-columns: 4fr 8fr;
+    } 
+}
+.panel-conteiner>div{
+    min-height: 100vh;
+}
+.panel-nav {
+    background-color: tomato;
+}
+.panel-body{
+    /* background-color: rgba(255, 255, 255, .6); */
+}
+
