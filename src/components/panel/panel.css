@@ -1,4 +1,4 @@
-.panel-mode{
+.panel-mode {
   display: grid;
   grid-template-columns: 3fr 9fr;
 }
@@ -7,11 +7,14 @@
   background-color: turquoise;
 }
 .panel-body {
+  margin: 0 auto;
+  background-color: rgb(16, 151, 151);
 
+  margin: 2rem;
 }
 .panel-body > * {
-
 }
+
 .panel-nav ul {
   list-style: none;
   padding: 0;

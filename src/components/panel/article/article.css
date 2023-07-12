@@ -1,0 +1,34 @@
+.panel-article-container ul {
+  padding: 0;
+  list-style: none;
+}
+.panel-article-container > ul .list-header {
+  background-color: violet;
+  display: flex;
+  justify-content: space-around;
+}
+.panel-article-container > ul .list-header > span:first-child {
+  flex-basis: 25rem;
+}
+.panel-article-container > ul .list-header > span:nth-child(2) {
+  flex-basis: 8rem;
+}
+.panel-article-container > ul .list-header > span:nth-child(3) {
+  flex-basis: 6.5rem;
+}
+.panel-article-container > ul > li {
+  display: flex;
+  justify-content: space-around;
+}
+.panel-article-container > ul > li > div.name {
+  flex-basis: 25rem;
+  background-color: crimson;
+}
+.panel-article-container > ul > li > div.cat {
+  flex-basis: 8rem;
+  background-color: chartreuse;
+}
+.panel-article-container > ul > li > div.date {
+  background-color: blueviolet;
+  flex-basis: 6.5rem;
+}
