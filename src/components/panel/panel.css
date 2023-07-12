@@ -1,43 +1,16 @@
+.panel-mode{
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+}
+.panel-nav {
+  min-height: 100vh;
+  background-color: turquoise;
+}
 .panel-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 35%;
-}
-@media screen and (min-width: 1020px) {
-  .panel-body {
-    margin-right: 34%;
-  }
-}
-@media screen and (min-width: 1100px) {
-    .panel-body {
-        margin-right: 33%;
-      }
-}
-@media screen and (min-width: 1150px) {
-    .panel-body {
-        margin-right: 32%;
-      }
-}
-@media screen and (min-width: 1200px) {
-    .panel-body {
-        margin-right: 31%;
-      }
-}
-@media screen and (min-width: 1250px) {
-    .panel-body {
 
-        margin-right: 30%;
-      }
-}
-@media screen and (min-width: 1300px) {
-    .panel-body {
-
-        margin-right: 25%;
-      }
 }
 .panel-body > * {
-  width: 100%;
+
 }
 .panel-nav ul {
   list-style: none;
@@ -64,13 +37,4 @@
 .panel-nav > .panel-accordion > li > ul.is-open {
   height: auto;
   padding: 0.8rem 0;
-}
-.panel-nav {
-  background-color: tomato;
-  min-height: 100vh;
-  position: fixed;
-  width: 35%;
-  max-width: 350px;
-}
-.panel-app-container {
 }
