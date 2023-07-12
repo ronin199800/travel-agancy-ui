@@ -43,14 +43,42 @@ panel-article-container > ul div.list-header {
   display: flex;
   justify-content: space-around;
 }
-.panel-article-container > ul > li > div {
+.panel-article-container > ul > li > div.date {
+ flex-basis: 90px;
+ background-color: red;
+ white-space: nowrap;
+}
+.panel-article-container > ul > li > div.cat {
+ flex-basis: 130px;
+ background-color: red;
+ white-space: nowrap;
+}
+.panel-article-container > ul > li > div.name {
+ flex-basis: 320px;
+ background-color: red;
+ white-space: nowrap;
 
 }
-/*
-.panel-article-container > ul div.list-header > span:first-child {
-  min-width: 300px;
-  text-align: right;
+.panel-article-container > ul div.list-header{
+background-color: aqua;
+width: 100%;
+display: flex;
+justify-content: space-around;
+padding: 0 .55rem;
 }
+.panel-article-container > ul div.list-header>span:first-child{
+  min-width: 320px;
+  background-color: chartreuse;
+}
+.panel-article-container > ul div.list-header>span:nth-child(2){
+  min-width: 130px;
+  background-color: chartreuse;
+}
+.panel-article-container > ul div.list-header>span:nth-child(3){
+  min-width: 90px;
+  background-color: chartreuse;
+}
+/*
 .panel-article-container > ul div.list-header > span {
   min-width: 150px;
   padding: 1rem;
