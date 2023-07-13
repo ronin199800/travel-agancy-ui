@@ -32,3 +32,12 @@
   background-color: blueviolet;
   flex-basis: 6.5rem;
 }
+.panel-article-container > ul > li > div > button {
+  padding: 0.3rem;
+}
+.panel-article-container > ul > li > div > button > span {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

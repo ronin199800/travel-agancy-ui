@@ -7,7 +7,9 @@ class PanelNav extends Component {
   static contextType = appContext;
   render() {
     return (
-      <div className={`panel-nav theme-text-${this.context.mode}`}>
+      <div
+        className={`panel-nav panel-nav-${this.context.mode}`}
+      >
         <ModeBtn />
 
         <Accordion />

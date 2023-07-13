@@ -42,11 +42,11 @@ class PArticle extends Component {
                     <span>{article.name}</span>
                   </div>
                   <div className="cat">
-                    {" "}
+
                     <span>{article.category.name_fa}</span>
                   </div>
                   <div className="date">
-                    {" "}
+
                     <span>
                       {digitsEnToFa(
                         moment(article.updatedAt)
