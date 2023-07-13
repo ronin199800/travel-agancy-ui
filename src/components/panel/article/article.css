@@ -1,42 +1,92 @@
+.panel-article-container {
+}
 .panel-article-container ul {
   padding: 0;
   list-style: none;
+  padding: 2rem 0;
 }
-.panel-article-container > ul .list-header {
-  background-color: violet;
+.panel-article-container-light > ul .list-header {
+  background: rgb(164, 176, 190);
+  background: linear-gradient(
+    164deg,
+    rgba(164, 176, 190, 0.3) 0%,
+    rgba(223, 228, 234, 1) 80%
+  );
+  color: #778ca3;
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  padding: 0.7rem 0;
+  margin: 0 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
 }
 .panel-article-container > ul .list-header > span:first-child {
   flex-basis: 25rem;
 }
 .panel-article-container > ul .list-header > span:nth-child(2) {
-  flex-basis: 8rem;
+  flex-basis: 7rem;
+  text-align: center;
 }
 .panel-article-container > ul .list-header > span:nth-child(3) {
-  flex-basis: 6.5rem;
+  flex-basis: 5rem;
+  text-align: center;
+}
+.panel-article-container > ul .list-header > span:nth-child(4){
+  text-align: center;
+}
+.panel-article-container > ul {
+  margin-top: 5rem;
 }
 .panel-article-container > ul > li {
   display: flex;
   justify-content: space-around;
+  margin-top: 0.5rem;
+}
+.panel-article-container-light > ul > li > div.name {
+  color: #2d98da;
 }
 .panel-article-container > ul > li > div.name {
   flex-basis: 25rem;
-  background-color: crimson;
 }
 .panel-article-container > ul > li > div.cat {
-  flex-basis: 8rem;
-  background-color: chartreuse;
+  flex-basis: 7rem;
+  font-size: 0.95rem;
+  text-align: center;
 }
 .panel-article-container > ul > li > div.date {
-  background-color: blueviolet;
-  flex-basis: 6.5rem;
+  flex-basis: 5rem;
+  color: #2f3640d0;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.panel-article-container > ul > li > div.delete{
+  text-align: center;
+}
+.panel-article-container > ul > li > div.edit{
+  text-align: center;
+}
+.panel-article-container > ul > li .delete-btn {
+  background-color: #e74c3c;
+  border: 0;
+  outline: 0;
+  color: #ecf0f1ea;
+  border-radius: 3px;
+  font-size: 1px !important;
+}
+.panel-article-container > ul > li .edit-btn {
+  background-color: #f1c40f;
+  border: 0;
+  outline: 0;
+  color: #00000091;
+  border-radius: 3px;
+  font-size: 1px !important;
 }
 .panel-article-container > ul > li > div > button {
   padding: 0.3rem;
 }
 .panel-article-container > ul > li > div > button > span {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;

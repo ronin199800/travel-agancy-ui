@@ -18,12 +18,11 @@
 }
 
 .panel-body {
-  margin: 0 auto;
-  background-color: rgb(16, 151, 151);
-
-  margin: 2rem;
 }
 .panel-body > * {
+  max-width: 1000px;
+  margin: 0rem auto;
+  margin-top: 4rem;
 }
 
 .panel-nav ul {

@@ -24,7 +24,7 @@ class PArticle extends Component {
   render() {
     return (
       <div className="panel-body">
-        <div className="panel-article-container">
+        <div className={`panel-article-container panel-article-container-${this.context.mode}`}>
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
           >
@@ -45,7 +45,7 @@ class PArticle extends Component {
 
                     <span>{article.category.name_fa}</span>
                   </div>
-                  <div className="date">
+                  <div className={`date`}>
 
                     <span>
                       {digitsEnToFa(
@@ -55,14 +55,14 @@ class PArticle extends Component {
                       )}
                     </span>
                   </div>
-                  <div>
+                  <div className="delete">
                     <button className=" delete-btn">
                       <span class={`material-symbols-rounded`}>
                         delete_forever
                       </span>
                     </button>
                   </div>
-                  <div>
+                  <div className="edit">
                     <button className=" edit-btn">
                       <span class={`material-symbols-rounded`}>edit</span>
                     </button>

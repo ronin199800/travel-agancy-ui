@@ -16,7 +16,7 @@
   transition: 0.15s ease;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.13);
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.099);
 }
 .theme-box-dark {
   background-color: var(--bg-box-dark);
