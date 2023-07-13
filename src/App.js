@@ -14,7 +14,7 @@ import Panel from "./components/panel/panel";
 import PanelNav from "./components/panel/panelNav";
 
 function App() {
-  const [mode, setmode] = useState("light");
+  const [mode, setmode] = useState("dark");
   const location = useLocation();
   return (
     <appContext.Provider
