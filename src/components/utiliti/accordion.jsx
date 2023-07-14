@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 class Accordion extends Component {
   state = {
-    isOpen: "close",
+    isOpen: "open",
   };
   render() {
     return (
