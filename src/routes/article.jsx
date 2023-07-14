@@ -69,9 +69,28 @@ class Article extends Component {
       );
     }
   };
+  handleFilter = async (categoryId) => {
+    try {
+      this.setState({ isLoaded: true });
+      const response = await axios.get(
+        `http://localhost:5000/api/article?category=${categoryId}`
+      );
+
+
+      setTimeout(() => {
+        this.setState({
+          articles: response.data.data,
+          isLoaded: false,
+        });
+      }, 500);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   render() {
-    const { articles, isLoaded, categories,currentPage,totalPages } = this.state;
+    const { articles, isLoaded, categories, currentPage, totalPages } =
+      this.state;
 
     return (
       <>
@@ -108,19 +127,6 @@ class Article extends Component {
       </>
     );
   }
-  handleFilter = async (categoryId) => {
-    try {
-      this.setState({ isLoaded: true });
-      const response = await axios.get(
-        `http://localhost:5000/api/article/category/${categoryId}`
-      );
-      setTimeout(() => {
-        this.setState({ articles: response.data.data, isLoaded: false });
-      }, 500);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 }
 
 export default Article;
