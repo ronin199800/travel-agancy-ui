@@ -4,27 +4,62 @@ import { digitsEnToFa } from "@persian-tools/persian-tools";
 import moment from "jalali-moment";
 import axios from "axios";
 import "./article.css";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 class PArticle extends Component {
   static contextType = appContext;
   state = {
     articles: [],
+    currentPage: 1,
+    totalPages: 0,
+    isLoaded: false,
   };
+
   componentDidMount() {
     this.fetchArticles();
   }
+
   fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/article");
-      this.setState({ articles: response.data.data });
+      const response = await axios.get(
+        `http://localhost:5000/api/article?page=${this.state.currentPage}`
+      );
+      const totalPages = response.data.totalPages || 0;
+
+setTimeout(()=>{
+  this.setState({
+    articles: response.data.data,
+    totalPages,
+    isLoaded:true
+  });
+},1500)
     } catch (error) {
       console.error(error);
     }
   };
 
+  nextPage = () => {
+    const { currentPage, totalPages } = this.state;
+    if (currentPage < totalPages) {
+      this.setState({ currentPage: currentPage + 1,isLoaded:false }, this.fetchArticles);
+    }
+  };
+
+  previousPage = () => {
+    const { currentPage } = this.state;
+    if (currentPage > 1) {
+      this.setState({ currentPage: currentPage - 1,isLoaded:false }, this.fetchArticles);
+    }
+  };
+
   render() {
+    const { articles, currentPage, totalPages } = this.state;
+
     return (
       <div className="panel-body">
-        <div className={`panel-article-container panel-article-container-${this.context.mode}`}>
+        <div
+          className={`panel-article-container panel-article-container-${this.context.mode}`}
+        >
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
           >
@@ -35,42 +70,69 @@ class PArticle extends Component {
               <span>حذف</span>
               <span>ویرایش</span>
             </div>
-            {this.state.articles.map((article) => {
-              return (
-                <li>
-                  <div className="name">
-                    <span>{article.name}</span>
-                  </div>
-                  <div className="cat">
-
-                    <span>{article.category.name_fa}</span>
-                  </div>
-                  <div className={`date`}>
-
-                    <span>
-                      {digitsEnToFa(
-                        moment(article.updatedAt)
-                          .locale("fa")
-                          .format("YYYY/MM/DD")
-                      )}
-                    </span>
-                  </div>
-                  <div className="delete">
-                    <button className=" delete-btn">
-                      <span class={`material-symbols-rounded`}>
-                        delete_forever
+            {this.state.isLoaded
+              ? articles.map((article) => (
+                  <li key={article.id}>
+                    <div className="name">
+                      <span>{article.name}</span>
+                    </div>
+                    <div className="cat">
+                      <span>{article.category.name_fa}</span>
+                    </div>
+                    <div className={`date`}>
+                      <span>
+                        {digitsEnToFa(
+                          moment(article.updatedAt)
+                            .locale("fa")
+                            .format("YYYY/MM/DD")
+                        )}
                       </span>
-                    </button>
-                  </div>
-                  <div className="edit">
-                    <button className=" edit-btn">
-                      <span class={`material-symbols-rounded`}>edit</span>
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
+                    </div>
+                    <div className="delete">
+                      <button className="delete-btn">
+                        <span className={`material-symbols-rounded`}>
+                          delete_forever
+                        </span>
+                      </button>
+                    </div>
+                    <div className="edit">
+                      <button className="edit-btn">
+                        <span className={`material-symbols-rounded`}>edit</span>
+                      </button>
+                    </div>
+                  </li>
+                ))
+              : Array(13)
+                  .fill({})
+                  .map(() => {
+                    return (
+                      <SkeletonTheme
+                        baseColor={this.context.mode ==='dark'? '#2f3542':'#ced6e0'}
+                        highlightColor={this.context.mode ==='dark'? '#57606f':'#ffffff'}
+                      >
+                        <div style={{display:'flex',justifyContent:'space-around',margin:'1rem'}}>
+                          <Skeleton width={250} />
+                          <Skeleton width={80} />
+                          <Skeleton width={80} />
+                          <Skeleton width={60} />
+                          <Skeleton width={60} />
+                        </div>
+                      </SkeletonTheme>
+                    );
+                  })}
           </ul>
+          <div>
+            <button onClick={this.previousPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <span>{currentPage}</span>
+            <button
+              onClick={this.nextPage}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     );
