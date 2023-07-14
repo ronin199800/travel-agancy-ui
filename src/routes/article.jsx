@@ -71,11 +71,10 @@ class Article extends Component {
   };
   handleFilter = async (categoryId) => {
     try {
-      this.setState({ isLoaded: true });
+      this.setState({ isLoaded: true ,currentPage:1});
       const response = await axios.get(
         `http://localhost:5000/api/article?category=${categoryId}`
       );
-
 
       setTimeout(() => {
         this.setState({
@@ -91,6 +90,8 @@ class Article extends Component {
   render() {
     const { articles, isLoaded, categories, currentPage, totalPages } =
       this.state;
+      const disablePrevious = currentPage === 1;
+      const disableNext = articles.length < 12;
 
     return (
       <>
@@ -111,14 +112,11 @@ class Article extends Component {
           </div>
           <div className="pagination-container">
             <div>
-              <button onClick={this.previousPage} disabled={currentPage === 1}>
+              <button onClick={this.previousPage} disabled={disablePrevious}>
                 Previous
               </button>
               <span>{currentPage}</span>
-              <button
-                onClick={this.nextPage}
-                disabled={currentPage === totalPages}
-              >
+              <button onClick={this.nextPage} disabled={disableNext}>
                 Next
               </button>
             </div>
