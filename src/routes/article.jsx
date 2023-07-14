@@ -14,7 +14,7 @@ class Article extends Component {
     isLoaded: true,
     categories: [],
     currentPage: 1,
-    articlesPerPage: 6,
+    totalPages: 0,
   };
   async componentDidMount() {
     this.fetchArticles();
@@ -23,33 +23,20 @@ class Article extends Component {
 
   fetchArticles = async () => {
     try {
-      const { currentPage, articlesPerPage } = this.state;
-      const response = await axios.get("http://localhost:5000/api/article", {
-        params: {
-          page: currentPage,
-          limit: articlesPerPage,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:5000/api/article?page=${this.state.currentPage}`
+      );
+      const totalPages = response.data.totalPages || 0;
+
       setTimeout(() => {
-        this.setState({ articles: response.data.data, isLoaded: false });
-      }, 1200);
+        this.setState({
+          articles: response.data.data,
+          totalPages,
+          isLoaded: false,
+        });
+      }, 500);
     } catch (error) {
       console.error(error);
-    }
-  };
-  handleNextPage = () => {
-    const { currentPage } = this.state;
-    this.setState({ currentPage: currentPage + 1 }, () => {
-      this.fetchArticles();
-    });
-  };
-
-  handlePreviousPage = () => {
-    const { currentPage } = this.state;
-    if (currentPage > 1) {
-      this.setState({ currentPage: currentPage - 1 }, () => {
-        this.fetchArticles();
-      });
     }
   };
 
@@ -63,23 +50,29 @@ class Article extends Component {
       console.error(error);
     }
   };
+  nextPage = () => {
+    const { currentPage, totalPages } = this.state;
+    if (currentPage < totalPages) {
+      this.setState(
+        { currentPage: currentPage + 1, isLoaded: true },
+        this.fetchArticles
+      );
+    }
+  };
+
+  previousPage = () => {
+    const { currentPage } = this.state;
+    if (currentPage > 1) {
+      this.setState(
+        { currentPage: currentPage - 1, isLoaded: true },
+        this.fetchArticles
+      );
+    }
+  };
 
   render() {
-    const { articles, isLoaded, categories, currentPage, articlesPerPage } =
-      this.state;
-    const totalArticles = articles.length;
+    const { articles, isLoaded, categories,currentPage,totalPages } = this.state;
 
-    // Calculate the index of the last article on the current page
-    const indexOfLastArticle = currentPage * articlesPerPage;
-
-    // Calculate the index of the first article on the current page
-    const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-
-    // Get the articles to be displayed on the current page
-    const currentArticles = articles.slice(
-      indexOfFirstArticle,
-      indexOfLastArticle
-    );
     return (
       <>
         <div className="article-router-body">
@@ -94,22 +87,20 @@ class Article extends Component {
               <CtaArticle />
             </div>
             <div>
-              <Articles articles={currentArticles} isLoaded={isLoaded} />
+              <Articles articles={articles} isLoaded={isLoaded} />
             </div>
           </div>
           <div className="pagination-container">
-            <div className={`pagination ${this.context.mode}`}>
-              <button
-                onClick={this.handlePreviousPage}
-                disabled={currentPage === 1}
-              >
-                <span class={`material-symbols-rounded`}>navigate_next</span>
+            <div>
+              <button onClick={this.previousPage} disabled={currentPage === 1}>
+                Previous
               </button>
+              <span>{currentPage}</span>
               <button
-                onClick={this.handleNextPage}
-                disabled={indexOfLastArticle >= totalArticles}
+                onClick={this.nextPage}
+                disabled={currentPage === totalPages}
               >
-                <span class={`material-symbols-rounded`}>navigate_before</span>
+                Next
               </button>
             </div>
           </div>
@@ -125,7 +116,7 @@ class Article extends Component {
       );
       setTimeout(() => {
         this.setState({ articles: response.data.data, isLoaded: false });
-      }, 1700);
+      }, 500);
     } catch (error) {
       console.error(error);
     }

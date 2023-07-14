@@ -32,7 +32,7 @@ setTimeout(()=>{
     totalPages,
     isLoaded:true
   });
-},1500)
+},500)
     } catch (error) {
       console.error(error);
     }
@@ -102,7 +102,7 @@ setTimeout(()=>{
                     </div>
                   </li>
                 ))
-              : Array(13)
+              : Array(12)
                   .fill({})
                   .map(() => {
                     return (
