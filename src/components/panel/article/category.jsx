@@ -6,6 +6,7 @@ import axios from "axios";
 import "./article.css";
 import "./category.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 
 class PCategory extends Component {
   static contextType = appContext;
@@ -95,14 +96,15 @@ class PCategory extends Component {
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
           <div className="add-article-button">
-            <button> 
-              <span className="material-symbols-rounded">
+            <Link>
+            <span className="material-symbols-rounded">
               add
               </span>
               <span>
                 دسته بندی جدید
               </span>
-            </button>
+            </Link>
+
           </div>
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
