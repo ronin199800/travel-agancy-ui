@@ -107,6 +107,7 @@
   color: #ecf0f1ea;
   border-radius: 3px;
   font-size: 1px !important;
+  cursor: pointer;
 }
 .panel-article-container > ul > li .edit-btn {
   background-color: #f1c40f;

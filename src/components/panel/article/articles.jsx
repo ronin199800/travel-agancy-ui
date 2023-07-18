@@ -57,6 +57,30 @@ class PArticle extends Component {
       );
     }
   };
+  handleDelete = async (article) => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this article?"
+    );
+
+    if (confirmation) {
+      try {
+        this.setState({ isLoaded: false });
+        const response = await axios.delete(
+          `http://localhost:5000/api/article/${article._id}`
+        );
+        // Remove the deleted article from the list of articles
+        const updatedArticles = this.state.articles.filter(
+          (item) => item._id !== article._id
+        );
+
+        setTimeout(() => {
+          this.setState({ articles: updatedArticles, isLoaded: true });
+        },500);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   render() {
     const { articles, currentPage, totalPages } = this.state;
@@ -102,7 +126,12 @@ class PArticle extends Component {
                       </button>
                     </div>
                     <div className="delete">
-                      <button className="delete-btn">
+                      <button
+                        onClick={() => {
+                          this.handleDelete(article);
+                        }}
+                        className="delete-btn"
+                      >
                         <span className={`material-symbols-rounded`}>
                           delete_forever
                         </span>
