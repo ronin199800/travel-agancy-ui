@@ -12,15 +12,19 @@ import PArticle from "./components/panel/article/articles";
 import EachArticle from "./routes/eachArticle";
 import Panel from "./components/panel/panel";
 import PanelNav from "./components/panel/panelNav";
+import PCategory from "./components/panel/article/category";
 
 function App() {
   const [mode, setmode] = useState("light");
-  const [panelNav, setPanelNav] = useState('open');
+  const [panelNav, setPanelNav] = useState("open");
   const location = useLocation();
   function setClasses() {
-    if (panelNav==='open' && location.pathname.startsWith("/panel")) {
+    if (panelNav === "open" && location.pathname.startsWith("/panel")) {
       return "panel-mode-nav-open";
-    } else if (panelNav==='closed' && location.pathname.startsWith("/panel")) {
+    } else if (
+      panelNav === "closed" &&
+      location.pathname.startsWith("/panel")
+    ) {
       return "panel-mode-nav-close";
     }
   }
@@ -39,14 +43,9 @@ function App() {
       <div
         className={`app-container scroll-${mode} theme-bg-${mode} ${setClasses()}`}
       >
-        {/*
-          Render Navbar for all routes except those starting with /panel
-        */}
         <Routes>
           <Route path="/panel/*" element={<PanelNav />} />
-          {/* Use PanelNav for routes starting with /panel */}
           <Route path="/*" element={<Navbar />} />
-          {/* Use Navbar for all other routes */}
         </Routes>
 
         <Routes>
@@ -55,6 +54,7 @@ function App() {
           <Route path="/panel" element={<Panel />} />
           <Route path="/panel/articles" element={<PArticle />} />
           <Route path="/panel/articles/post" element={<PostArticle />} />
+          <Route path="/panel/articles/category" element={<PCategory />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
@@ -72,10 +72,10 @@ function App() {
     }
   }
   function openClose() {
-    if ((panelNav === 'closed')) {
-      setPanelNav('open');
-    } else if ((panelNav === 'open')) {
-      setPanelNav('closed');
+    if (panelNav === "closed") {
+      setPanelNav("open");
+    } else if (panelNav === "open") {
+      setPanelNav("closed");
     }
   }
 
