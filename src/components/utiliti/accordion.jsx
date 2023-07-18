@@ -23,7 +23,7 @@ class Accordion extends Component {
               navigate_before
             </span>
           </span>
-          <ul className={`is-${this.state.isOpen}`}>
+          <ul className={`is-${this.state.isOpen} accordion-body`}>
             <li>
               <Link to="/panel/articles">
                 <span className="material-symbols-rounded">library_books</span>

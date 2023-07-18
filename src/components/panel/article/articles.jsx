@@ -26,13 +26,13 @@ class PArticle extends Component {
       );
       const totalPages = response.data.totalPages || 0;
 
-setTimeout(()=>{
-  this.setState({
-    articles: response.data.data,
-    totalPages,
-    isLoaded:true
-  });
-},500)
+      setTimeout(() => {
+        this.setState({
+          articles: response.data.data,
+          totalPages,
+          isLoaded: true,
+        });
+      }, 500);
     } catch (error) {
       console.error(error);
     }
@@ -41,19 +41,27 @@ setTimeout(()=>{
   nextPage = () => {
     const { currentPage, totalPages } = this.state;
     if (currentPage < totalPages) {
-      this.setState({ currentPage: currentPage + 1,isLoaded:false }, this.fetchArticles);
+      this.setState(
+        { currentPage: currentPage + 1, isLoaded: false },
+        this.fetchArticles
+      );
     }
   };
 
   previousPage = () => {
     const { currentPage } = this.state;
     if (currentPage > 1) {
-      this.setState({ currentPage: currentPage - 1,isLoaded:false }, this.fetchArticles);
+      this.setState(
+        { currentPage: currentPage - 1, isLoaded: false },
+        this.fetchArticles
+      );
     }
   };
 
   render() {
-    const { articles, currentPage, totalPages } = this.state;
+    const { articles, currentPage, totalPages, } = this.state;
+    const disablePrevious = currentPage === 1;
+    const disableNext = articles.length < 12;
 
     return (
       <div className="panel-body">
@@ -107,10 +115,20 @@ setTimeout(()=>{
                   .map(() => {
                     return (
                       <SkeletonTheme
-                        baseColor={this.context.mode ==='dark'? '#2f3542':'#ced6e0'}
-                        highlightColor={this.context.mode ==='dark'? '#57606f':'#ffffff'}
+                        baseColor={
+                          this.context.mode === "dark" ? "#2f3542" : "#ced6e0"
+                        }
+                        highlightColor={
+                          this.context.mode === "dark" ? "#57606f" : "#ffffff"
+                        }
                       >
-                        <div style={{display:'flex',justifyContent:'space-around',margin:'1rem'}}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                            margin: "1rem",
+                          }}
+                        >
                           <Skeleton width={250} />
                           <Skeleton width={80} />
                           <Skeleton width={80} />
@@ -121,17 +139,29 @@ setTimeout(()=>{
                     );
                   })}
           </ul>
-          <div>
-            <button onClick={this.previousPage} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <span>{currentPage}</span>
-            <button
-              onClick={this.nextPage}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </button>
+          <div className="pagination">
+            <span style={{
+              color: `var(--text-mute-${this.context.mode})`
+            }}>
+              {`${digitsEnToFa(currentPage)} از ${digitsEnToFa(totalPages)}`}{" "}
+              صفحه
+            </span>
+
+            <div className="pagination-btn">
+              <button onClick={this.previousPage} disabled={disablePrevious}>
+              <span className="material-symbols-rounded">
+                  navigate_next
+                </span>
+              </button>
+              <button
+                onClick={this.nextPage}
+                disabled={disableNext}
+              >
+                <span className="material-symbols-rounded">
+                  navigate_before
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

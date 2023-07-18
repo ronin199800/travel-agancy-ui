@@ -6,6 +6,7 @@ import ArticleCategory from "../components/article/article-category/articleCateg
 import Breadcrumb from "../components/breadcrumb/breadcrumb";
 import CtaArticle from "../components/ctaArticle/ctaArticle";
 import axios from "axios";
+import { digitsEnToFa } from "@persian-tools/persian-tools";
 
 class Article extends Component {
   static contextType = appContext;
@@ -110,14 +111,27 @@ class Article extends Component {
               <Articles articles={articles} isLoaded={isLoaded} />
             </div>
           </div>
-          <div className="pagination-container">
-            <div>
+          <div className="pagination">
+            <span style={{
+              color: `var(--text-mute-${this.context.mode})`
+            }}>
+              {`${digitsEnToFa(currentPage)} از ${digitsEnToFa(totalPages)}`}{" "}
+              صفحه
+            </span>
+
+            <div className="pagination-btn">
               <button onClick={this.previousPage} disabled={disablePrevious}>
-                Previous
+              <span className="material-symbols-rounded">
+                  navigate_next
+                </span>
               </button>
-              <span>{currentPage}</span>
-              <button onClick={this.nextPage} disabled={disableNext}>
-                Next
+              <button
+                onClick={this.nextPage}
+                disabled={disableNext}
+              >
+                <span className="material-symbols-rounded">
+                  navigate_before
+                </span>
               </button>
             </div>
           </div>

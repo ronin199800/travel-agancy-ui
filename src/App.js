@@ -14,8 +14,16 @@ import Panel from "./components/panel/panel";
 import PanelNav from "./components/panel/panelNav";
 
 function App() {
-  const [mode, setmode] = useState("dark");
+  const [mode, setmode] = useState("light");
+  const [panelNav, setPanelNav] = useState('open');
   const location = useLocation();
+  function setClasses() {
+    if (panelNav==='open' && location.pathname.startsWith("/panel")) {
+      return "panel-mode-nav-open";
+    } else if (panelNav==='closed' && location.pathname.startsWith("/panel")) {
+      return "panel-mode-nav-close";
+    }
+  }
   return (
     <appContext.Provider
       value={{
@@ -23,12 +31,13 @@ function App() {
         setmode: setmode,
         changeMode: changeMode,
         convertNumbersToPersian: convertNumbersToPersian,
+        isOpen: panelNav,
+        openClose: openClose,
+        setPanelNav: setPanelNav,
       }}
     >
       <div
-        className={`app-container scroll-${mode} theme-bg-${mode} ${
-          location.pathname.startsWith("/panel") ? "panel-mode" : ""
-        }`}
+        className={`app-container scroll-${mode} theme-bg-${mode} ${setClasses()}`}
       >
         {/*
           Render Navbar for all routes except those starting with /panel
@@ -60,6 +69,13 @@ function App() {
     }
     if (mode === "dark") {
       setmode("light");
+    }
+  }
+  function openClose() {
+    if ((panelNav === 'closed')) {
+      setPanelNav('open');
+    } else if ((panelNav === 'open')) {
+      setPanelNav('closed');
     }
   }
 

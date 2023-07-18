@@ -1,5 +1,4 @@
 .panel-article-container {
-  /* max-width: 750px; */
 }
 .panel-article-container ul {
   padding: 0;
@@ -41,7 +40,7 @@
   border-radius: 5px;
 }
 .panel-article-container > ul .list-header > span:first-child {
-  flex-basis: 22rem;
+  flex-basis: 20rem;
 }
 .panel-article-container > ul .list-header > span:nth-child(2) {
   flex-basis: 7rem;
@@ -69,7 +68,7 @@
   color: #0abde3;
 }
 .panel-article-container > ul > li > div.name {
-  flex-basis: 23rem;
+  flex-basis: 20rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -79,6 +78,9 @@
   flex-basis: 7rem;
   font-size: 0.95rem;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .panel-article-container-light > ul > li > div.date {
   flex-basis: 5rem;
