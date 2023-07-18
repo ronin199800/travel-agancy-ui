@@ -94,6 +94,16 @@ class PCategory extends Component {
         <div
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
+          <div className="add-article-button">
+            <button> 
+              <span className="material-symbols-rounded">
+              add
+              </span>
+              <span>
+                دسته بندی جدید
+              </span>
+            </button>
+          </div>
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
           >

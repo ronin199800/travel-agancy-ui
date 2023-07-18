@@ -5,6 +5,7 @@ import moment from "jalali-moment";
 import axios from "axios";
 import "./article.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 
 class PArticle extends Component {
   static contextType = appContext;
@@ -75,7 +76,7 @@ class PArticle extends Component {
 
         setTimeout(() => {
           this.setState({ articles: updatedArticles, isLoaded: true });
-        },500);
+        }, 500);
       } catch (error) {
         console.error(error);
       }
@@ -92,6 +93,12 @@ class PArticle extends Component {
         <div
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
+          <div className="add-article-button">
+            <Link to='/panel/articles/post'>
+              <span className="material-symbols-rounded">history_edu</span>
+              <span>مقاله جدید</span>
+            </Link>
+          </div>
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
           >
