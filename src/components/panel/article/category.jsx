@@ -59,6 +59,30 @@ class PCategory extends Component {
       );
     }
   };
+  handleDelete = async (category) => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this article category?"
+    );
+
+    if (confirmation) {
+      try {
+        this.setState({ isLoaded: false });
+        const response = await axios.delete(
+          `http://localhost:5000/api/article/category/${category._id}`
+        );
+        // Remove the deleted article from the list of articles
+        const updatedCat = this.state.categories.filter(
+          (item) => item._id !== category._id
+        );
+
+        setTimeout(() => {
+          this.setState({ categories: updatedCat, isLoaded: true });
+        },500);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   render() {
     const { categories, currentPage, totalPages } = this.state;
@@ -105,7 +129,9 @@ class PCategory extends Component {
                     </div>
                     <div className="delete">
                       <button className="delete-btn">
-                        <span className={`material-symbols-rounded`}>
+                        <span onClick={()=>{
+                          this.handleDelete(category)
+                        }} className={`material-symbols-rounded`}>
                           delete_forever
                         </span>
                       </button>
