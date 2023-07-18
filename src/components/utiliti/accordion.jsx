@@ -17,7 +17,7 @@ class Accordion extends Component {
             </div>
             <span
               className={`material-symbols-rounded ${
-                this.state.isOpen === 'open' ? " animate" : ""
+                this.state.isOpen === "open" ? " animate" : ""
               }`}
             >
               navigate_before
@@ -25,20 +25,20 @@ class Accordion extends Component {
           </span>
           <ul className={`is-${this.state.isOpen} accordion-body`}>
             <li>
-              <Link to="/panel/articles">
-                <span className="material-symbols-rounded">library_books</span>
-                <span>مقالات</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/panel/articles">
+              <Link to="/panel/articles/post">
                 <span className="material-symbols-rounded">edit</span>
                 <span>افزودن پست</span>
               </Link>
             </li>
             <li>
-              {" "}
               <Link to="/panel/articles">
+                <span className="material-symbols-rounded">library_books</span>
+                <span>مقالات</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/panel/articles/category">
                 <span className="material-symbols-rounded">category</span>
                 <span>دسته بندی ها</span>
               </Link>

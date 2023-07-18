@@ -4,31 +4,33 @@ import { digitsEnToFa } from "@persian-tools/persian-tools";
 import moment from "jalali-moment";
 import axios from "axios";
 import "./article.css";
+import "./category.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-class PArticle extends Component {
+class PCategory extends Component {
   static contextType = appContext;
   state = {
-    articles: [],
+    categories: [],
     currentPage: 1,
     totalPages: 0,
     isLoaded: false,
   };
 
   componentDidMount() {
-    this.fetchArticles();
+    this.fetchArticleCat();
   }
 
-  fetchArticles = async () => {
+  fetchArticleCat = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/article?page=${this.state.currentPage}`
+        `http://localhost:5000/api/article/category?page=${this.state.currentPage}`
       );
       const totalPages = response.data.totalPages || 0;
+      console.log(this.response);
 
       setTimeout(() => {
         this.setState({
-          articles: response.data.data,
+          categories: response.data.data,
           totalPages,
           isLoaded: true,
         });
@@ -43,7 +45,7 @@ class PArticle extends Component {
     if (currentPage < totalPages) {
       this.setState(
         { currentPage: currentPage + 1, isLoaded: false },
-        this.fetchArticles
+        this.fetchArticleCat
       );
     }
   };
@@ -53,15 +55,15 @@ class PArticle extends Component {
     if (currentPage > 1) {
       this.setState(
         { currentPage: currentPage - 1, isLoaded: false },
-        this.fetchArticles
+        this.fetchArticleCat
       );
     }
   };
 
   render() {
-    const { articles, currentPage, totalPages } = this.state;
+    const { categories, currentPage, totalPages } = this.state;
     const disablePrevious = currentPage === 1;
-    const disableNext = articles.length < 12;
+    const disableNext = categories.length < 12;
 
     return (
       <div className="panel-body">
@@ -72,25 +74,25 @@ class PArticle extends Component {
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
           >
             <div className="list-header">
-              <span>نام مقاله</span>
-              <span>دسته بندی</span>
+              <span>نام فارسی</span>
+              <span>نام انگلیسی</span>
               <span>بروزرسانی</span>
               <span>ویرایش</span>
               <span>حذف</span>
             </div>
             {this.state.isLoaded
-              ? articles.map((article) => (
-                  <li key={article.id}>
+              ? categories.map((category) => (
+                  <li key={categories.id}>
                     <div className="name">
-                      <span>{article.name}</span>
+                      <span>{category.name_fa}</span>
                     </div>
-                    <div className="cat">
-                      <span>{article.category.name_fa}</span>
+                    <div className="cat name_en">
+                      <span>{category.name_en}</span>
                     </div>
                     <div className={`date`}>
                       <span>
                         {digitsEnToFa(
-                          moment(article.updatedAt)
+                          moment(category.updatedAt)
                             .locale("fa")
                             .format("YYYY/MM/DD")
                         )}
@@ -166,4 +168,4 @@ class PArticle extends Component {
   }
 }
 
-export default PArticle;
+export default PCategory;
