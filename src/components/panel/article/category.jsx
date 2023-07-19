@@ -27,7 +27,7 @@ class PCategory extends Component {
       name_fa: "",
       content_en: "",
     },
-    open: false,
+    open: true,
     showAlert: false,
     categoryToDelete: null,
     openConfirmationDialog: false,
@@ -170,6 +170,7 @@ class PCategory extends Component {
               <span className="my-font">دسته بندی جدید</span>
             </Button>
           </div>
+
           <Dialog open={this.state.open} onClose={this.handleClose}>
             <DialogTitle>
               <span className="my-font">اضافه کردن دسته بندی جدید</span>
@@ -177,7 +178,44 @@ class PCategory extends Component {
             <DialogContent>
               <form
                 onSubmit={this.handleSubmit}
-                className={`theme-text-${this.context.mode}`}
+              >
+                <div>
+                  <label htmlFor="name">نام فارسی</label>
+                  <input
+                    onChange={this.handleChange}
+                    value={this.state.category.name_fa}
+                    type="text"
+                    id="name_fa"
+                    name="name_fa"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="content">نام انگلیسی</label>
+                  <input
+                    onChange={this.handleChange}
+                    value={this.state.category.name_en}
+                    type="text"
+                    id="name_en"
+                    name="name_en"
+                  />
+                </div>
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose}>
+                <span className="my-font">بستن</span>
+              </Button>
+              <Button onClick={this.handleSubmit} color="primary">
+                <span className="my-font">افزودن</span>
+              </Button>
+            </DialogActions>
+          </Dialog><Dialog open={this.state.open} onClose={this.handleClose}>
+            <DialogTitle>
+              <span className="my-font">اضافه کردن دسته بندی جدید</span>
+            </DialogTitle>
+            <DialogContent>
+              <form className="post-form"
+                onSubmit={this.handleSubmit}
               >
                 <div>
                   <label htmlFor="name">نام فارسی</label>
@@ -210,6 +248,7 @@ class PCategory extends Component {
               </Button>
             </DialogActions>
           </Dialog>
+
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
             open={this.state.showAlert}

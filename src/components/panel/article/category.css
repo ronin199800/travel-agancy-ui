@@ -1,4 +1,42 @@
-.name_en{
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-direction: ltr;
+.name_en {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  direction: ltr;
+}
+.post-form {
+    width: 30vw;
+}
+.post-form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+.post-form > div{
+    position: relative;
+    margin-top: .5rem;
+}
+.post-form > div >label{
+    position: absolute;
+    background-color: #ffffff;
+    top: -5px;
+    right: 12px;
+    font-size: .95rem;
+    padding: 0 3px;
+
+}
+.post-form > div:hover>label{
+
+
+}
+
+.post-form > div > input[type="text"] {
+    padding: .4rem ;
+    font-family: myFont;
+    border-radius: 3px;
+    border: 0;
+    outline: 0;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+.post-form > div > input[type="text"]:focus{
+    border: 1px solid #1B9CFC;
 }
