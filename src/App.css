@@ -107,6 +107,9 @@
 .App {
   text-align: center;
 }
+.my-font{
+  font-family: 'myFont' !important;
+}
 
 .App-logo {
   height: 40vmin;
