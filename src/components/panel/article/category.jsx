@@ -78,7 +78,7 @@ class PCategory extends Component {
 
         setTimeout(() => {
           this.setState({ categories: updatedCat, isLoaded: true });
-        },500);
+        }, 500);
       } catch (error) {
         console.error(error);
       }
@@ -96,15 +96,10 @@ class PCategory extends Component {
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
           <div className="add-article-button">
-            <Link>
-            <span className="material-symbols-rounded">
-              add
-              </span>
-              <span>
-                دسته بندی جدید
-              </span>
+            <Link to="/panel/articles/category/post">
+              <span className="material-symbols-rounded">add</span>
+              <span>دسته بندی جدید</span>
             </Link>
-
           </div>
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
@@ -141,9 +136,12 @@ class PCategory extends Component {
                     </div>
                     <div className="delete">
                       <button className="delete-btn">
-                        <span onClick={()=>{
-                          this.handleDelete(category)
-                        }} className={`material-symbols-rounded`}>
+                        <span
+                          onClick={() => {
+                            this.handleDelete(category);
+                          }}
+                          className={`material-symbols-rounded`}
+                        >
                           delete_forever
                         </span>
                       </button>

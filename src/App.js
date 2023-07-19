@@ -13,6 +13,7 @@ import EachArticle from "./routes/eachArticle";
 import Panel from "./components/panel/panel";
 import PanelNav from "./components/panel/panelNav";
 import PCategory from "./components/panel/article/category";
+import PostArticleCat from "./components/panel/postArticle/postArticleCat";
 
 function App() {
   const [mode, setmode] = useState("light");
@@ -55,6 +56,7 @@ function App() {
           <Route path="/panel/articles" element={<PArticle />} />
           <Route path="/panel/articles/post" element={<PostArticle />} />
           <Route path="/panel/articles/category" element={<PCategory />} />
+          <Route path="/panel/articles/category/post" element={<PostArticleCat />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate to="/not-found" />} />

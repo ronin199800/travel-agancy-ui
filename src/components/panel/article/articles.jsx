@@ -94,7 +94,7 @@ class PArticle extends Component {
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
           <div className="add-article-button">
-            <Link to='/panel/articles/post'>
+            <Link to="/panel/articles/post">
               <span className="material-symbols-rounded">history_edu</span>
               <span>مقاله جدید</span>
             </Link>
