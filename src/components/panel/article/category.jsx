@@ -6,7 +6,15 @@ import axios from "axios";
 import "./article.css";
 import "./category.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { Link } from "react-router-dom";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Snackbar,
+  SnackbarContent,
+} from "@material-ui/core";
 
 class PCategory extends Component {
   static contextType = appContext;
@@ -15,6 +23,15 @@ class PCategory extends Component {
     currentPage: 1,
     totalPages: 0,
     isLoaded: false,
+    category: {
+      name_fa: "",
+      content_en: "",
+    },
+    open: false,
+    showAlert: false,
+    categoryToDelete: null,
+    openConfirmationDialog: false,
+    showDeleteAlert: false,
   };
 
   componentDidMount() {
@@ -61,32 +78,74 @@ class PCategory extends Component {
     }
   };
   handleDelete = async (category) => {
-    const confirmation = window.confirm(
-      "Are you sure you want to delete this article category?"
-    );
+    this.setState({ categoryToDelete: category, openConfirmationDialog: true });
+  };
 
-    if (confirmation) {
+  handleConfirmationDialogClose = async (confirmed) => {
+    if (confirmed) {
       try {
         this.setState({ isLoaded: false });
         const response = await axios.delete(
-          `http://localhost:5000/api/article/category/${category._id}`
+          `http://localhost:5000/api/article/category/${this.state.categoryToDelete._id}`
         );
         // Remove the deleted article from the list of articles
         const updatedCat = this.state.categories.filter(
-          (item) => item._id !== category._id
+          (item) => item._id !== this.state.categoryToDelete._id
         );
 
         setTimeout(() => {
-          this.setState({ categories: updatedCat, isLoaded: true });
+          this.setState({
+            categories: updatedCat,
+            isLoaded: true,
+            showDeleteAlert: true,
+          });
         }, 500);
       } catch (error) {
         console.error(error);
       }
     }
+
+    // Reset the state
+    this.setState({ categoryToDelete: null, openConfirmationDialog: false });
+  };
+  showAlert = () => {
+    this.setState({ showAlert: true });
+  };
+
+  hideAlert = () => {
+    this.setState({ showAlert: false });
+  };
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await axios.post(
+      "http://localhost:5000/api/article/category",
+      this.state.category
+    );
+    this.showAlert();
+    this.handleClose();
+  };
+  handleChange = (e) => {
+    const input = e.currentTarget;
+    const category = { ...this.state.category };
+    category[input.name] = input.value;
+    this.setState({ category });
   };
 
   render() {
-    const { categories, currentPage, totalPages } = this.state;
+    const {
+      categories,
+      currentPage,
+      totalPages,
+      categoryToDelete,
+      openConfirmationDialog,
+    } = this.state;
     const disablePrevious = currentPage === 1;
     const disableNext = categories.length < 12;
 
@@ -96,11 +155,73 @@ class PCategory extends Component {
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
           <div className="add-article-button">
-            <Link to="/panel/articles/category/post">
+            <Button
+              onClick={this.handleOpen}
+              style={{
+                backgroundColor: this.context.mode === "dark" ? "#000" : "#fff",
+                color: this.context.mode === "dark" ? "#fff" : "#000",
+                transition: "background-color 0.3s ease",
+              }}
+            >
               <span className="material-symbols-rounded">add</span>
-              <span>دسته بندی جدید</span>
-            </Link>
+              <span className="my-font">دسته بندی جدید</span>
+            </Button>
           </div>
+          <Dialog open={this.state.open} onClose={this.handleClose}>
+            <DialogTitle>
+              <span className="my-font">اضافه کردن دسته بندی جدید</span>
+            </DialogTitle>
+            <DialogContent>
+              <form
+                onSubmit={this.handleSubmit}
+                className={`theme-text-${this.context.mode}`}
+              >
+                <div>
+                  <label htmlFor="name">نام فارسی</label>
+                  <input
+                    onChange={this.handleChange}
+                    value={this.state.category.name_fa}
+                    type="text"
+                    id="name_fa"
+                    name="name_fa"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="content">نام انگلیسی</label>
+                  <input
+                    onChange={this.handleChange}
+                    value={this.state.category.name_en}
+                    type="text"
+                    id="name_en"
+                    name="name_en"
+                  />
+                </div>
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose}>
+                <span className="my-font">بستن</span>
+              </Button>
+              <Button onClick={this.handleSubmit} color="primary">
+                <span className="my-font">افزودن</span>
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={this.state.showAlert}
+            autoHideDuration={3000}
+            onClose={this.hideAlert}
+          >
+            <SnackbarContent
+              style={{
+                backgroundColor: "green",
+                fontFamily: "myFont",
+                boxShadow: "0 3px 10px rgba(0, 0, 0, 0.05)",
+              }}
+              message="دسته بندی جدید با موفقیت ایجاد شد"
+            />
+          </Snackbar>
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}
           >
@@ -146,6 +267,52 @@ class PCategory extends Component {
                         </span>
                       </button>
                     </div>
+                    <Dialog
+                      open={openConfirmationDialog}
+                      onClose={() => this.handleConfirmationDialogClose(false)}
+                    >
+                      <DialogTitle>
+                        <span className="my-font">اخطار</span>
+                      </DialogTitle>
+                      <DialogContent>
+                        <span className="my-font">
+                          آیا از پاک کردن این دسته بندی مطمئن هستید ؟
+                        </span>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button
+                          onClick={() =>
+                            this.handleConfirmationDialogClose(false)
+                          }
+                          color="primary"
+                        >
+                          <span className="my-font">انصراف</span>
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            this.handleConfirmationDialogClose(true)
+                          }
+                          color="secondary"
+                        >
+                          <span className="my-font">تایید</span>
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    <Snackbar
+                      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                      open={this.state.showDeleteAlert}
+                      autoHideDuration={3000}
+                      onClose={this.hideDeleteAlert}
+                    >
+                      <SnackbarContent
+                        style={{
+                          backgroundColor: "green",
+                          fontFamily: "myFont",
+                          boxShadow: "0 3px 10px rgba(0, 0, 0, 0.05)",
+                        }}
+                        message="دسته بندی با موفقیت حذف شد"
+                      />
+                    </Snackbar>
                   </li>
                 ))
               : Array(12)

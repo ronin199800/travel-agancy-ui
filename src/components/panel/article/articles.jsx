@@ -7,6 +7,7 @@ import "./article.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 
+
 class PArticle extends Component {
   static contextType = appContext;
   state = {
