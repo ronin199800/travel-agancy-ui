@@ -122,6 +122,9 @@ class PCategory extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  hideDeleteAlert = () => {
+    this.setState({ showDeleteAlert: false });
+  };
   handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios.post(
@@ -214,11 +217,7 @@ class PCategory extends Component {
             onClose={this.hideAlert}
           >
             <SnackbarContent
-              style={{
-                backgroundColor: "green",
-                fontFamily: "myFont",
-                boxShadow: "0 3px 10px rgba(0, 0, 0, 0.05)",
-              }}
+              style={{ backgroundColor: "green", fontFamily: "myFont" }}
               message="دسته بندی جدید با موفقیت ایجاد شد"
             />
           </Snackbar>
@@ -308,7 +307,7 @@ class PCategory extends Component {
                         style={{
                           backgroundColor: "green",
                           fontFamily: "myFont",
-                          boxShadow: "0 3px 10px rgba(0, 0, 0, 0.05)",
+                          boxShadow:'1px 2px 10px rgba(0,0,0,.1)'
                         }}
                         message="دسته بندی با موفقیت حذف شد"
                       />
