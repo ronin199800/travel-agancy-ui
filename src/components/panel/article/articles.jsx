@@ -6,6 +6,15 @@ import axios from "axios";
 import "./article.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Link } from "react-router-dom";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Snackbar,
+  SnackbarContent,
+} from "@material-ui/core";
 
 
 class PArticle extends Component {
@@ -94,11 +103,17 @@ class PArticle extends Component {
         <div
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
-          <div className="add-article-button">
-            <Link to="/panel/articles/post">
-              <span className="material-symbols-rounded">history_edu</span>
-              <span>مقاله جدید</span>
-            </Link>
+ <div className="add-article-button">
+            <Button
+              style={{
+                backgroundColor: this.context.mode === "dark" ? "rgba(255,255,255 ,.1)" : "rgba(255,255,255 ,.6)",
+                color: this.context.mode === "dark" ? "#fff" : "#000",
+                transition: "background-color 0.3s ease",
+              }}
+            >
+              <Link to='/panel/articles/post' className="material-symbols-rounded">history_edu</Link>
+              <Link to='/panel/articles/post' className="my-font" style={{fontSize:'.85rem',marginBottom:'2px'}}>مقاله جدید</Link>
+            </Button>
           </div>
           <ul
             className={`theme-box-${this.context.mode} theme-text-${this.context.mode} panel-article-list-container`}

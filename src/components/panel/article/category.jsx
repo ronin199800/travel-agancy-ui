@@ -27,7 +27,7 @@ class PCategory extends Component {
       name_fa: "",
       content_en: "",
     },
-    open: true,
+    open: false,
     showAlert: false,
     categoryToDelete: null,
     openConfirmationDialog: false,
@@ -150,7 +150,6 @@ class PCategory extends Component {
       openConfirmationDialog,
     } = this.state;
     const disablePrevious = currentPage === 1;
-    const disableNext = categories.length < 12;
 
     return (
       <div className="panel-body">
@@ -161,13 +160,13 @@ class PCategory extends Component {
             <Button
               onClick={this.handleOpen}
               style={{
-                backgroundColor: this.context.mode === "dark" ? "#000" : "#fff",
+                backgroundColor: this.context.mode === "dark" ? "rgba(255,255,255 ,.1)" : "rgba(255,255,255 ,.6)",
                 color: this.context.mode === "dark" ? "#fff" : "#000",
                 transition: "background-color 0.3s ease",
               }}
             >
               <span className="material-symbols-rounded">add</span>
-              <span className="my-font">دسته بندی جدید</span>
+              <span className="my-font" style={{fontSize:'.85rem',marginBottom:'2px'}}>دسته بندی جدید</span>
             </Button>
           </div>
 
@@ -256,7 +255,7 @@ class PCategory extends Component {
             onClose={this.hideAlert}
           >
             <SnackbarContent
-              style={{ backgroundColor: "green", fontFamily: "myFont" }}
+              style={{ backgroundColor: "#10ac84", fontFamily: "myFont", boxShadow:'1px 2px 10px rgba(0,0,0,.1)' }}
               message="دسته بندی جدید با موفقیت ایجاد شد"
             />
           </Snackbar>
@@ -344,9 +343,9 @@ class PCategory extends Component {
                     >
                       <SnackbarContent
                         style={{
-                          backgroundColor: "green",
+                          backgroundColor: "#10ac84",
                           fontFamily: "myFont",
-                          boxShadow:'1px 2px 10px rgba(0,0,0,.1)'
+                          boxShadow:'1px 2px 10px rgba(0,0,0,.04)'
                         }}
                         message="دسته بندی با موفقیت حذف شد"
                       />
@@ -396,7 +395,7 @@ class PCategory extends Component {
               <button onClick={this.previousPage} disabled={disablePrevious}>
                 <span className="material-symbols-rounded">navigate_next</span>
               </button>
-              <button onClick={this.nextPage} disabled={disableNext}>
+              <button onClick={this.nextPage}>
                 <span className="material-symbols-rounded">
                   navigate_before
                 </span>
