@@ -4,6 +4,7 @@
 }
 .post-form {
     width: 30vw;
+    min-width: 300px;
 }
 .post-form > div {
   display: flex;
@@ -30,14 +31,21 @@
 }
 
 .post-form > div > input[type="text"] {
-    padding: .4rem ;
+    padding: .5rem ;
     font-family: myFont;
     border-radius: 3px;
     border: 0;
     outline: 0;
-    border: 1px solid rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .25);
 }
 .post-form > div > input[type="text"]:focus{
-    border: 1px solid #1B9CFC;
+    /* border: 1px solid #1B9CFC; */
 }
 
+.error {
+    border-color: red;
+  }
+  
+  .error-message {
+    color: red;
+  }

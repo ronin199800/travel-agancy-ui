@@ -27,7 +27,7 @@ class PCategory extends Component {
       name_fa: "",
       content_en: "",
     },
-    open: false,
+    open: true,
     showAlert: false,
     categoryToDelete: null,
     openConfirmationDialog: false,
@@ -140,6 +140,7 @@ class PCategory extends Component {
       openConfirmationDialog,
     } = this.state;
     const disablePrevious = currentPage === 1;
+    const disableNext = categories.length < 12;
 
     return (
       <div className="panel-body">
@@ -385,7 +386,7 @@ class PCategory extends Component {
               <button onClick={this.previousPage} disabled={disablePrevious}>
                 <span className="material-symbols-rounded">navigate_next</span>
               </button>
-              <button onClick={this.nextPage}>
+              <button onClick={this.nextPage} disabled={disableNext}>
                 <span className="material-symbols-rounded">
                   navigate_before
                 </span>

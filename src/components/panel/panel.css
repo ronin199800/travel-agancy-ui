@@ -9,14 +9,14 @@
   grid-template-columns: 1fr 10fr; 
   display: grid;
   font-size: 15px;
-  gap: 0rem;
+  gap: 1.2rem;
 }
 .panel-nav-open {
   min-height: 100vh;
   max-width: 340px;
 }
 .panel-nav-close {
-  max-width: 100px;
+max-width: 160px ;
 }
 .panel-nav-light {
   background-color: var(--bg-box-light);
@@ -287,5 +287,5 @@ padding: .3rem;
   font-size: 1rem;
 }
 .panel-nav-close .accordion-body>li>a>span:nth-child(2){
-  font-size: .7rem !important;
+  font-size: .93rem !important;
 }
