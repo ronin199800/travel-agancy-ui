@@ -118,7 +118,9 @@ class PCategory extends Component {
     this.setState({ showAlert: false });
   };
   handleOpen = () => {
-    this.setState({ open: true });
+    this.setState({
+      open: true,
+    });
   };
 
   handleClose = () => {
@@ -168,6 +170,26 @@ class PCategory extends Component {
       this.setState({ validation: updatedValidation });
     }
   };
+  resetInput = () => {
+    this.setState({
+      category: {
+        name_fa: "",
+        name_en: "",
+      },
+      validation: {
+        name_fa: {
+          value: "",
+          isValid: false,
+          touched: false,
+        },
+        name_en: {
+          value: "",
+          isValid: false,
+          touched: false,
+        },
+      },
+    });
+  };
 
   render() {
     const {
@@ -197,7 +219,10 @@ class PCategory extends Component {
         >
           <div className="add-article-button">
             <Button
-              onClick={this.handleOpen}
+              onClick={() => {
+                this.resetInput();
+                this.handleOpen();
+              }}
               style={{
                 backgroundColor:
                   this.context.mode === "dark"
