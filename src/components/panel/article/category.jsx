@@ -88,18 +88,7 @@ class PCategory extends Component {
         const response = await axios.delete(
           `http://localhost:5000/api/article/category/${this.state.categoryToDelete._id}`
         );
-        // Remove the deleted article from the list of articles
-        const updatedCat = this.state.categories.filter(
-          (item) => item._id !== this.state.categoryToDelete._id
-        );
-
-        setTimeout(() => {
-          this.setState({
-            categories: updatedCat,
-            isLoaded: true,
-            showDeleteAlert: true,
-          });
-        }, 500);
+        this.fetchArticleCat()
       } catch (error) {
         console.error(error);
       }
@@ -133,6 +122,7 @@ class PCategory extends Component {
     );
     this.showAlert();
     this.handleClose();
+    this.fetchArticleCat()
   };
   handleChange = (e) => {
     const input = e.currentTarget;
