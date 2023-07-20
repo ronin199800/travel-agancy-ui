@@ -41,11 +41,17 @@
 .post-form > div > input[type="text"]:focus{
     /* border: 1px solid #1B9CFC; */
 }
+.default{
+}
 
-.error {
-    border-color: red;
-  }
-  
-  .error-message {
-    color: red;
-  }
+.invalid {
+  border-color: red !important;
+}
+
+.valid {
+  border-color: green !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;}

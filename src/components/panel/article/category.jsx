@@ -32,6 +32,18 @@ class PCategory extends Component {
     categoryToDelete: null,
     openConfirmationDialog: false,
     showDeleteAlert: false,
+    validation: {
+      name_fa: {
+        value: "",
+        isValid: false,
+        touched: false,
+      },
+      name_en: {
+        value: "",
+        isValid: false,
+        touched: false,
+      },
+    },
   };
 
   componentDidMount() {
@@ -88,7 +100,8 @@ class PCategory extends Component {
         const response = await axios.delete(
           `http://localhost:5000/api/article/category/${this.state.categoryToDelete._id}`
         );
-        this.fetchArticleCat()
+        // Remove the deleted article from the list of articles
+        this.fetchArticleCat();
       } catch (error) {
         console.error(error);
       }
@@ -114,21 +127,46 @@ class PCategory extends Component {
   hideDeleteAlert = () => {
     this.setState({ showDeleteAlert: false });
   };
-  handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:5000/api/article/category",
-      this.state.category
-    );
-    this.showAlert();
-    this.handleClose();
-    this.fetchArticleCat()
-  };
   handleChange = (e) => {
     const input = e.currentTarget;
     const category = { ...this.state.category };
+    const validation = { ...this.state.validation };
     category[input.name] = input.value;
-    this.setState({ category });
+
+    // Update validation status
+    validation[input.name].value = input.value;
+    validation[input.name].isValid = input.value.trim() !== "";
+
+    // Update touched status
+    validation[input.name].touched = true;
+
+    this.setState({ category, validation });
+  };
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const { validation } = this.state;
+
+    // Check if all inputs are valid
+    const isFormValid = Object.values(validation).every(
+      (input) => input.isValid
+    );
+
+    if (isFormValid) {
+      const response = await axios.post(
+        "http://localhost:5000/api/article/category",
+        this.state.category
+      );
+      this.showAlert();
+      this.handleClose();
+      this.fetchArticleCat();
+    } else {
+      // Display validation errors for invalid inputs
+      const updatedValidation = { ...validation };
+      Object.keys(updatedValidation).forEach((inputName) => {
+        updatedValidation[inputName].touched = true;
+      });
+      this.setState({ validation: updatedValidation });
+    }
   };
 
   render() {
@@ -138,10 +176,20 @@ class PCategory extends Component {
       totalPages,
       categoryToDelete,
       openConfirmationDialog,
+      validation,
     } = this.state;
     const disablePrevious = currentPage === 1;
-    const disableNext = categories.length < 12;
-
+    const disableNext = categories.length <= 12;
+    const nameFaClassName = validation.name_fa.touched
+      ? validation.name_fa.isValid
+        ? "valid"
+        : "invalid"
+      : "default";
+    const nameEnClassName = validation.name_en.touched
+      ? validation.name_en.isValid
+        ? "valid"
+        : "invalid"
+      : "default";
     return (
       <div className="panel-body">
         <div
@@ -151,13 +199,21 @@ class PCategory extends Component {
             <Button
               onClick={this.handleOpen}
               style={{
-                backgroundColor: this.context.mode === "dark" ? "rgba(255,255,255 ,.1)" : "rgba(255,255,255 ,.6)",
+                backgroundColor:
+                  this.context.mode === "dark"
+                    ? "rgba(255,255,255 ,.1)"
+                    : "rgba(255,255,255 ,.6)",
                 color: this.context.mode === "dark" ? "#fff" : "#000",
                 transition: "background-color 0.3s ease",
               }}
             >
               <span className="material-symbols-rounded">add</span>
-              <span className="my-font" style={{fontSize:'.85rem',marginBottom:'2px'}}>دسته بندی جدید</span>
+              <span
+                className="my-font"
+                style={{ fontSize: ".85rem", marginBottom: "2px" }}
+              >
+                دسته بندی جدید
+              </span>
             </Button>
           </div>
 
@@ -166,67 +222,40 @@ class PCategory extends Component {
               <span className="my-font">اضافه کردن دسته بندی جدید</span>
             </DialogTitle>
             <DialogContent>
-              <form
-                onSubmit={this.handleSubmit}
-              >
+              <form onSubmit={this.handleSubmit} className="post-form">
                 <div>
-                  <label htmlFor="name">نام فارسی</label>
+                  <label htmlFor="name_fa">نام فارسی</label>
                   <input
                     onChange={this.handleChange}
                     value={this.state.category.name_fa}
                     type="text"
                     id="name_fa"
                     name="name_fa"
+                    className={nameFaClassName}
                   />
+                  {validation.name_fa.touched &&
+                    !validation.name_fa.isValid && (
+                      <div className="error-message">نام فارسی الزامی است.</div>
+                    )}
                 </div>
                 <div>
-                  <label htmlFor="content">نام انگلیسی</label>
+                  <label htmlFor="name_en">نام انگلیسی</label>
                   <input
                     onChange={this.handleChange}
                     value={this.state.category.name_en}
                     type="text"
                     id="name_en"
                     name="name_en"
+                    className={nameEnClassName}
                   />
+                  {validation.name_en.touched &&
+                    !validation.name_en.isValid && (
+                      <div className="error-message">
+                        نام انگلیسی الزامی است.
+                      </div>
+                    )}
                 </div>
-              </form>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose}>
-                <span className="my-font">بستن</span>
-              </Button>
-              <Button onClick={this.handleSubmit} color="primary">
-                <span className="my-font">افزودن</span>
-              </Button>
-            </DialogActions>
-          </Dialog><Dialog open={this.state.open} onClose={this.handleClose}>
-            <DialogTitle>
-              <span className="my-font">اضافه کردن دسته بندی جدید</span>
-            </DialogTitle>
-            <DialogContent>
-              <form className="post-form"
-                onSubmit={this.handleSubmit}
-              >
-                <div>
-                  <label htmlFor="name">نام فارسی</label>
-                  <input
-                    onChange={this.handleChange}
-                    value={this.state.category.name_fa}
-                    type="text"
-                    id="name_fa"
-                    name="name_fa"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="content">نام انگلیسی</label>
-                  <input
-                    onChange={this.handleChange}
-                    value={this.state.category.name_en}
-                    type="text"
-                    id="name_en"
-                    name="name_en"
-                  />
-                </div>
+                {/* ... */}
               </form>
             </DialogContent>
             <DialogActions>
@@ -246,7 +275,11 @@ class PCategory extends Component {
             onClose={this.hideAlert}
           >
             <SnackbarContent
-              style={{ backgroundColor: "#10ac84", fontFamily: "myFont", boxShadow:'1px 2px 10px rgba(0,0,0,.1)' }}
+              style={{
+                backgroundColor: "#10ac84",
+                fontFamily: "myFont",
+                boxShadow: "1px 2px 10px rgba(0,0,0,.1)",
+              }}
               message="دسته بندی جدید با موفقیت ایجاد شد"
             />
           </Snackbar>
@@ -336,7 +369,7 @@ class PCategory extends Component {
                         style={{
                           backgroundColor: "#10ac84",
                           fontFamily: "myFont",
-                          boxShadow:'1px 2px 10px rgba(0,0,0,.04)'
+                          boxShadow: "1px 2px 10px rgba(0,0,0,.04)",
                         }}
                         message="دسته بندی با موفقیت حذف شد"
                       />
