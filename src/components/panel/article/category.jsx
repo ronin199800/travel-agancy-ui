@@ -201,7 +201,7 @@ class PCategory extends Component {
       validation,
     } = this.state;
     const disablePrevious = currentPage === 1;
-    const disableNext = categories.length <= 12;
+    const disableNext = categories.length < 12;
     const nameFaClassName = validation.name_fa.touched
       ? validation.name_fa.isValid
         ? "valid"
