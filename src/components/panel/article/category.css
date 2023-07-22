@@ -3,8 +3,8 @@
   direction: ltr;
 }
 .post-form {
-    width: 30vw;
-    min-width: 300px;
+  width: 30vw;
+  min-width: 300px;
 }
 .post-form > div {
   display: flex;
@@ -12,31 +12,30 @@
   gap: 0.5rem;
   padding: 0.5rem;
 }
-.post-form > div{
-    position: relative;
-    margin-top: .5rem;
+.post-form > div {
+  position: relative;
+  margin-top: 0.5rem;
 }
-.post-form > div >label{
-    position: absolute;
-    background-color: #ffffff;
-    top: -5px;
-    right: 12px;
-    font-size: .95rem;
-    padding: 0 3px;
-
+.post-form > div > label {
+  position: absolute;
+  background-color: #ffffff;
+  top: -5px;
+  right: 12px;
+  font-size: 0.95rem;
+  padding: 0 3px;
 }
 .post-form > div > input[type="text"] {
-    padding: .5rem .7rem ;
-    font-family: myFont;
-    border-radius: 3px;
-    border: 0;
-    outline: 0;
-    border: 1px solid rgba(0, 0, 0, .25);
+  padding: 0.5rem 0.7rem;
+  font-family: myFont;
+  border-radius: 3px;
+  border: 0;
+  outline: 0;
+  border: 1px solid rgba(0, 0, 0, 0.25);
 }
-.post-form > div > input[type="text"]:focus{
-    border: 1px solid #1B9CFC;
+.post-form > div > input[type="text"]:focus {
+  border: 1px solid #1b9cfc;
 }
-.default{
+.default {
 }
 
 .invalid {
@@ -49,4 +48,14 @@
 
 .error-message {
   color: red;
-  font-size: 0.8rem;}
+  font-size: 0.8rem;
+}
+.dialog-dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.dialog-light {
+  background-color: #fff;
+  color: #000;
+}
