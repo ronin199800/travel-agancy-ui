@@ -25,13 +25,8 @@
     padding: 0 3px;
 
 }
-.post-form > div:hover>label{
-
-
-}
-
 .post-form > div > input[type="text"] {
-    padding: .5rem ;
+    padding: .5rem .7rem ;
     font-family: myFont;
     border-radius: 3px;
     border: 0;
@@ -39,7 +34,7 @@
     border: 1px solid rgba(0, 0, 0, .25);
 }
 .post-form > div > input[type="text"]:focus{
-    /* border: 1px solid #1B9CFC; */
+    border: 1px solid #1B9CFC;
 }
 .default{
 }
@@ -49,7 +44,7 @@
 }
 
 .valid {
-  border-color: green !important;
+  border-color: #27ae60 !important;
 }
 
 .error-message {

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import appContext from "../../../context/app";
 import axios from "axios";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 class PostArticle extends Component {
   static contextType = appContext;
   state = {
@@ -44,13 +46,19 @@ class PostArticle extends Component {
         </div>
         <div>
           <label htmlFor="content">محتوای مقاله </label>
-          <input
-            onChange={this.handleChange}
-            value={this.state.article.content}
-            type="text"
-            id="content"
-            name="content"
-          />
+                <CKEditor
+                    editor={ ClassicEditor }
+                    data="<p>Hello from CKEditor 5!</p>"
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      this.setState(prevState => ({
+                        article: {
+                          ...prevState.article,
+                          content: data
+                        }
+                      }));
+                    }}
+                />
         </div>
         <div>
           <label htmlFor="read_time">زمان مطالعه</label>
@@ -67,7 +75,7 @@ class PostArticle extends Component {
           <input
             onChange={this.handleChange}
             value={this.state.article.img_url}
-            type="text"
+            type="file"
             id="img_url"
             name="img_url"
           />
