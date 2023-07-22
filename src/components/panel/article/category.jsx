@@ -27,7 +27,7 @@ class PCategory extends Component {
       name_fa: "",
       content_en: "",
     },
-    open: true,
+    open: false,
     showAlert: false,
     categoryToDelete: null,
     openConfirmationDialog: false,
@@ -101,6 +101,7 @@ class PCategory extends Component {
           `http://localhost:5000/api/article/category/${this.state.categoryToDelete._id}`
         );
         // Remove the deleted article from the list of articles
+        this.setState({ showDeleteAlert: true });
         this.fetchArticleCat();
       } catch (error) {
         console.error(error);
@@ -201,7 +202,7 @@ class PCategory extends Component {
       validation,
     } = this.state;
     const disablePrevious = currentPage === 1;
-    const disableNext = categories.length < 12;
+    const disableNext = categories.length <= 12;
     const nameFaClassName = validation.name_fa.touched
       ? validation.name_fa.isValid
         ? "valid"

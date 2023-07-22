@@ -16,7 +16,6 @@ import {
   SnackbarContent,
 } from "@material-ui/core";
 
-
 class PArticle extends Component {
   static contextType = appContext;
   state = {
@@ -24,6 +23,9 @@ class PArticle extends Component {
     currentPage: 1,
     totalPages: 0,
     isLoaded: false,
+    articleToDelete: null,
+    openConfirmationDialog: false,
+    showDeleteAlert: false,
   };
 
   componentDidMount() {
@@ -68,33 +70,38 @@ class PArticle extends Component {
       );
     }
   };
-  handleDelete = async (article) => {
-    const confirmation = window.confirm(
-      "Are you sure you want to delete this article?"
-    );
+  handleDelete = async (category) => {
+    this.setState({
+      articleToDelete: category,
+      openConfirmationDialog: true,
+    });
+  };
 
-    if (confirmation) {
+  handleConfirmationDialogClose = async (confirmed) => {
+    if (confirmed) {
       try {
         this.setState({ isLoaded: false });
         const response = await axios.delete(
-          `http://localhost:5000/api/article/${article._id}`
+          `http://localhost:5000/api/article/${this.state.articleToDelete._id}`
         );
         // Remove the deleted article from the list of articles
-        const updatedArticles = this.state.articles.filter(
-          (item) => item._id !== article._id
-        );
-
-        setTimeout(() => {
-          this.setState({ articles: updatedArticles, isLoaded: true });
-        }, 500);
+        this.setState({ showDeleteAlert: true });
+        this.fetchArticles();
       } catch (error) {
         console.error(error);
       }
     }
+
+    // Reset the state
+    this.setState({ categoryToDelete: null, openConfirmationDialog: false });
+  };
+  hideDeleteAlert = () => {
+    this.setState({ showDeleteAlert: false });
   };
 
   render() {
-    const { articles, currentPage, totalPages } = this.state;
+    const { articles, currentPage, totalPages, openConfirmationDialog } =
+      this.state;
     const disablePrevious = currentPage === 1;
     const disableNext = articles.length < 12;
 
@@ -103,16 +110,30 @@ class PArticle extends Component {
         <div
           className={`panel-article-container panel-article-container-${this.context.mode}`}
         >
- <div className="add-article-button">
+          <div className="add-article-button">
             <Button
               style={{
-                backgroundColor: this.context.mode === "dark" ? "rgba(255,255,255 ,.1)" : "rgba(255,255,255 ,.6)",
+                backgroundColor:
+                  this.context.mode === "dark"
+                    ? "rgba(255,255,255 ,.1)"
+                    : "rgba(255,255,255 ,.6)",
                 color: this.context.mode === "dark" ? "#fff" : "#000",
                 transition: "background-color 0.3s ease",
               }}
             >
-              <Link to='/panel/articles/post' className="material-symbols-rounded">history_edu</Link>
-              <Link to='/panel/articles/post' className="my-font" style={{fontSize:'.85rem',marginBottom:'2px'}}>مقاله جدید</Link>
+              <Link
+                to="/panel/articles/post"
+                className="material-symbols-rounded"
+              >
+                history_edu
+              </Link>
+              <Link
+                to="/panel/articles/post"
+                className="my-font"
+                style={{ fontSize: ".85rem", marginBottom: "2px" }}
+              >
+                مقاله جدید
+              </Link>
             </Button>
           </div>
           <ul
@@ -155,11 +176,62 @@ class PArticle extends Component {
                         }}
                         className="delete-btn"
                       >
-                        <span className={`material-symbols-rounded`}>
+                        <span
+                          onClick={() => {
+                            this.handleDelete(article);
+                          }}
+                          className={`material-symbols-rounded`}
+                        >
                           delete_forever
                         </span>
                       </button>
                     </div>
+                    <Dialog
+                      open={openConfirmationDialog}
+                      onClose={() => this.handleConfirmationDialogClose(false)}
+                    >
+                      <DialogTitle>
+                        <span className="my-font">اخطار</span>
+                      </DialogTitle>
+                      <DialogContent>
+                        <span className="my-font">
+                          آیا از پاک کردن این دسته بندی مطمئن هستید ؟
+                        </span>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button
+                          onClick={() =>
+                            this.handleConfirmationDialogClose(false)
+                          }
+                          color="primary"
+                        >
+                          <span className="my-font">انصراف</span>
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            this.handleConfirmationDialogClose(true)
+                          }
+                          color="secondary"
+                        >
+                          <span className="my-font">تایید</span>
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    <Snackbar
+                      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                      open={this.state.showDeleteAlert}
+                      autoHideDuration={3000}
+                      onClose={this.hideDeleteAlert}
+                    >
+                      <SnackbarContent
+                        style={{
+                          backgroundColor: "#10ac84",
+                          fontFamily: "myFont",
+                          boxShadow: "1px 2px 10px rgba(0,0,0,.04)",
+                        }}
+                        message="دسته بندی با موفقیت حذف شد"
+                      />
+                    </Snackbar>
                   </li>
                 ))
               : Array(12)
