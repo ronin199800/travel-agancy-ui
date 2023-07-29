@@ -46,6 +46,7 @@ class PCategory extends Component {
     },
     categoryToEdit: null,
     putOpen: false,
+    showUpdateAlert: false,
   };
 
   componentDidMount() {
@@ -119,6 +120,13 @@ class PCategory extends Component {
 
   hideAlert = () => {
     this.setState({ showAlert: false });
+  };
+  showUpdateAlert = () => {
+    this.setState({ showUpdateAlert: true });
+  };
+
+  hideUpdateAlert = () => {
+    this.setState({ showUpdateAlert: false });
   };
   handleOpen = () => {
     this.setState({
@@ -224,7 +232,7 @@ class PCategory extends Component {
           `http://localhost:5000/api/article/category/${categoryToEdit._id}`,
           categoryToEdit
         );
-        // this.showAlert();
+        this.showUpdateAlert();
         this.handlePutClose();
         this.fetchArticleCat();
       } catch (error) {
@@ -299,6 +307,7 @@ class PCategory extends Component {
                     id="name_fa"
                     name="name_fa"
                     className={nameFaClassName}
+                    autoComplete="off"
                   />
                   {validation.name_fa.touched &&
                     !validation.name_fa.isValid && (
@@ -314,6 +323,7 @@ class PCategory extends Component {
                     id="name_en"
                     name="name_en"
                     className={nameEnClassName}
+                    autoComplete="off"
                   />
                   {validation.name_en.touched &&
                     !validation.name_en.isValid && (
@@ -348,6 +358,21 @@ class PCategory extends Component {
                 boxShadow: "1px 2px 10px rgba(0,0,0,.1)",
               }}
               message="دسته بندی جدید با موفقیت ایجاد شد"
+            />
+          </Snackbar>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={this.state.showUpdateAlert}
+            autoHideDuration={3000}
+            onClose={this.hideUpdateAlert}
+          >
+            <SnackbarContent
+              style={{
+                backgroundColor: "#10ac84",
+                fontFamily: "myFont",
+                boxShadow: "1px 2px 10px rgba(0,0,0,.1)",
+              }}
+              message="دسته بندی جدید با موفقیت بروزرسانی شد"
             />
           </Snackbar>
           <ul
