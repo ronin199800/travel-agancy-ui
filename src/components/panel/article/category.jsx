@@ -16,7 +16,6 @@ import {
   SnackbarContent,
 } from "@material-ui/core";
 
-
 class PCategory extends Component {
   static contextType = appContext;
   state = {
@@ -45,6 +44,8 @@ class PCategory extends Component {
         touched: false,
       },
     },
+    categoryToEdit: null,
+    putOpen: false,
   };
 
   componentDidMount() {
@@ -192,7 +193,45 @@ class PCategory extends Component {
       },
     });
   };
+  handleEdit = (category) => {
+    // Set the state with the category data that needs to be edited
+    this.setState({
+      categoryToEdit: {
+        name_fa: category.name_fa,
+        name_en: category.name_en,
+        _id: category._id,
+      },
+      putOpen: true,
+    });
+  };
+  handlePutClose = () => {
+    this.setState({ putOpen: false });
+  };
+  handlePutChange = (e) => {
+    const input = e.currentTarget;
+    const updatedCategoryToEdit = { ...this.state.categoryToEdit };
+    updatedCategoryToEdit[input.name] = input.value;
+    this.setState({ categoryToEdit: updatedCategoryToEdit });
+  };
+  handlePutSubmit = async (e) => {
+    e.preventDefault();
+    const { categoryToEdit } = this.state;
 
+    // Check if the categoryToEdit is not null and contains valid data
+    if (categoryToEdit && categoryToEdit._id) {
+      try {
+        const response = await axios.put(
+          `http://localhost:5000/api/article/category/${categoryToEdit._id}`,
+          categoryToEdit
+        );
+        // this.showAlert();
+        this.handlePutClose();
+        this.fetchArticleCat();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
   render() {
     const {
       categories,
@@ -201,6 +240,7 @@ class PCategory extends Component {
       categoryToDelete,
       openConfirmationDialog,
       validation,
+      categoryToEdit,
     } = this.state;
     const disablePrevious = currentPage === 1;
     const disableNext = categories.length <= 12;
@@ -340,9 +380,63 @@ class PCategory extends Component {
                     </div>
                     <div className="edit">
                       <button className="edit-btn">
-                        <span className={`material-symbols-rounded`}>edit</span>
+                        <span
+                          onClick={() => this.handleEdit(category)}
+                          className={`material-symbols-rounded`}
+                        >
+                          edit
+                        </span>
                       </button>
                     </div>
+                    <Dialog
+                      open={this.state.putOpen}
+                      onClose={this.handlePutClose}
+                    >
+                      <DialogTitle>
+                        <span className="my-font">ویرایش دسته بندی</span>
+                      </DialogTitle>
+                      <DialogContent>
+                        <form
+                          onSubmit={this.handlePutSubmit}
+                          className="post-form"
+                        >
+                          <div>
+                            <label htmlFor="name_fa">نام فارسی</label>
+                            <input
+                              onChange={this.handlePutChange}
+                              value={
+                                categoryToEdit ? categoryToEdit.name_fa : ""
+                              }
+                              type="text"
+                              id="name_fa"
+                              name="name_fa"
+                              className={nameFaClassName}
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="name_en">نام انگلیسی</label>
+                            <input
+                              onChange={this.handlePutChange}
+                              value={
+                                categoryToEdit ? categoryToEdit.name_en : ""
+                              }
+                              type="text"
+                              id="name_en"
+                              name="name_en"
+                              className={nameEnClassName}
+                            />
+                          </div>
+                        </form>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={this.handlePutClose}>
+                          <span className="my-font">بستن</span>
+                        </Button>
+                        <Button onClick={this.handlePutSubmit} color="primary">
+                          <span className="my-font">به روزرسانی</span>
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
                     <div className="delete">
                       <button className="delete-btn">
                         <span

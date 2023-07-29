@@ -58,6 +58,7 @@ class PostArticle extends Component {
                         }
                       }));
                     }}
+                    
                 />
         </div>
         <div>
