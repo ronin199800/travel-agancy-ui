@@ -435,7 +435,6 @@ class PCategory extends Component {
                               type="text"
                               id="name_fa"
                               name="name_fa"
-                              className={nameFaClassName}
                             />
                           </div>
                           <div>
@@ -448,7 +447,7 @@ class PCategory extends Component {
                               type="text"
                               id="name_en"
                               name="name_en"
-                              className={nameEnClassName}
+
                             />
                           </div>
                         </form>
